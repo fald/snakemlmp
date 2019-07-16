@@ -1,4 +1,5 @@
-import constants.settings
+from constants import settings
+from constants.enums import Directions
 from classes.snake import Snake
 from data_loaders.initialize_new_game import initialize
 from render_functions.render import refresh
@@ -31,7 +32,7 @@ class App:
         pass
 
     def on_render(self):
-        refresh(self._display_surf, self._image_surf, (self.players[0].x, self.players[0].y))
+        refresh(self._display_surf, self._image_surf, self.players[0].location)
         pygame.display.flip()
 
     def on_cleanup(self):
@@ -50,17 +51,26 @@ class App:
             keys = pygame.key.get_pressed()
             
             if keys[K_RIGHT]:
-                self.players[0].move_right()
+            #     self.players[0].move_right()
+                self.players[0].set_direction(Directions.RIGHT)
             if keys[K_LEFT]:
-                self.players[0].move_left()
+            #     self.players[0].move_left()
+                self.players[0].set_direction(Directions.LEFT)
             if keys[K_UP]:
-                self.players[0].move_up()
+            #     self.players[0].move_up()
+                self.players[0].set_direction(Directions.UP)
             if keys[K_DOWN]:
-                self.players[0].move_down()
-            
+            #     self.players[0].move_down()
+                self.players[0].set_direction(Directions.DOWN)
             if keys[K_ESCAPE]:
                 self._running = False
 
+            for player in self.players:
+                player.update()
+
             self.on_loop()
             self.on_render()
+
+            self._clock.tick(settings.FPS)
+
         self.on_cleanup()
