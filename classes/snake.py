@@ -36,6 +36,9 @@ class Snake:
     def length(self):
         return len(self.snake)
 
+    def increase_size(self):
+        self.increase += 1
+
     def move(self, direction):
         self.x += self.step * direction[0]
         self.y += self.step * direction[1]

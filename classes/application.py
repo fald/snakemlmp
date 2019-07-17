@@ -25,6 +25,7 @@ class App:
         self._clock = init['clock']
         self.players = init['players']
         self.game_speed = init['game_speed']
+        self.apples = init['apples']
 
     def on_event(self, event):
         if event.type == QUIT:
@@ -36,8 +37,11 @@ class App:
     def on_render(self):
         # refresh(self._display_surf, self._image_surf, self.players[0].location)
         self._display_surf.fill(settings.BACKGROUND)
+        for apple in self.apples:
+            apple.render(self._display_surf)
         for player in self.players:
             player.render(self._display_surf, self._image_surf)
+
         pygame.display.flip()
 
     def on_cleanup(self):
@@ -67,13 +71,15 @@ class App:
             if keys[K_DOWN]:
             #     self.players[0].move_down()
                 self.players[0].set_direction(Directions.DOWN)
-            else:
-                print(keys[K_DOWN])
             if keys[K_ESCAPE]:
                 self._running = False
 
             for player in self.players:
                 player.update()
+                for apple in self.apples:
+                    if player.location == apple.location:
+                        apple.new_location(self.players, self._display_surf.get_size())
+                        player.increase_size()
 
             self.on_loop()
             self.on_render()

@@ -1,13 +1,14 @@
 from constants import colors
 import sys
 
-RESOLUTION = (800, 600)
+RESOLUTION = (400, 200)
 WINDOW_TITLE = "SnAIke"
 WINDOW_ICON = None
 FPS = 60
 BLOCK_SIZE = 40
 
 SNAKE_BODY = "./assets/snake_body.png"
+APPLE_IMAGE = "./assets/snake_food.png"
 START_LENGTH = 3
 
 BACKGROUND = colors.BLACK
