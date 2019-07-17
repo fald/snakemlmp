@@ -3,7 +3,7 @@ from constants.enums import Directions
 from classes.snake import Snake
 from data_loaders.initialize_new_game import initialize
 from render_functions.render import refresh
-import pygame
+import pygame, time
 from pygame.locals import *
 
 class App:
@@ -14,6 +14,7 @@ class App:
         self.players = []
         self._fonts = []
         self._clock = None
+        self.game_speed = 0
 
     def on_init(self):
         init = initialize()
@@ -23,6 +24,7 @@ class App:
         self._fonts = init['fonts']
         self._clock = init['clock']
         self.players = init['players']
+        self.game_speed = init['game_speed']
 
     def on_event(self, event):
         if event.type == QUIT:
@@ -65,6 +67,8 @@ class App:
             if keys[K_DOWN]:
             #     self.players[0].move_down()
                 self.players[0].set_direction(Directions.DOWN)
+            else:
+                print(keys[K_DOWN])
             if keys[K_ESCAPE]:
                 self._running = False
 
@@ -74,6 +78,8 @@ class App:
             self.on_loop()
             self.on_render()
 
-            self._clock.tick(settings.FPS)
+            self._clock.tick(self.game_speed)
+            # self.game_speed += 1
+            # time.sleep(100.0 / 1000.0)
 
         self.on_cleanup()

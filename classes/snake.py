@@ -3,10 +3,11 @@ from constants.enums import Directions
 
 
 class Snake:
-    def __init__(self, speed=0, start_length=settings.START_LENGTH, start_location=(0, 0), start_direction=Directions.RIGHT):
+    def __init__(self, speed=0.1, step=0, start_length=settings.START_LENGTH, start_location=(0, 0), start_direction=Directions.RIGHT):
         # Location of just the head
         self.x = start_location[0]
         self.y = start_location[1]
+        self.step = step
         self.speed = speed
         self.direction = start_direction
         self.controls = {} # Different snakes will have different controls
@@ -36,8 +37,8 @@ class Snake:
         return len(self.snake)
 
     def move(self, direction):
-        self.x += self.speed * direction[0]
-        self.y += self.speed * direction[1]
+        self.x += self.step * direction[0]
+        self.y += self.step * direction[1]
     
     def set_direction(self, direction):
         # No doubling back on yourself, foo'
