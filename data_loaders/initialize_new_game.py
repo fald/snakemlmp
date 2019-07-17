@@ -43,14 +43,6 @@ def initialize():
 
     game_speed = settings.START_GAME_SPEED
 
-    # # Don't mind this ugly mess, just playing around 
-    # grid_x, grid_y = (int(x / apple_image.get_size()[0]) for x in settings.RESOLUTION)
-    # first_apple_location = randint(0, grid_x) * apple_image.get_size()[0], randint(0, grid_y) * apple_image.get_size()[1]
-    # first_apple = Apple(location=first_apple_location, image=apple_image)
-    # first_apple.new_location(players, settings.RESOLUTION)
-    # apples = [first_apple]
-
-
     return {
         'main_display': main_display,
         'game_display': game_display,

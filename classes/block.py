@@ -18,3 +18,13 @@ class Block:
 
     def render(self, onto_window):
         onto_window.blit(self.image, self.abs_location)
+
+    def within_bounds(self, grid=settings.PLAY_AREA_DIMENSIONS):
+        if (
+            self.grid_x not in range(grid[0]) or 
+            self.grid_y not in range(grid[1])
+            ):
+            return False
+        return True
+
+

@@ -72,21 +72,6 @@ class App:
                         self.players[0].set_direction(Directions.DOWN)
                     elif event.key == K_ESCAPE:
                         self._running = False
-            # keys = pygame.key.get_pressed()
-            # if keys[K_RIGHT]:
-            # #     self.players[0].move_right()
-            #     self.players[0].set_direction(Directions.RIGHT)
-            # if keys[K_LEFT]:
-            # #     self.players[0].move_left()
-            #     self.players[0].set_direction(Directions.LEFT)
-            # if keys[K_UP]:
-            # #     self.players[0].move_up()
-            #     self.players[0].set_direction(Directions.UP)
-            # if keys[K_DOWN]:
-            # #     self.players[0].move_down()
-            #     self.players[0].set_direction(Directions.DOWN)
-            # if keys[K_ESCAPE]:
-            #     self._running = False
 
             for player in self.players:
                 player.update()
@@ -94,6 +79,16 @@ class App:
                     if player.grid_location == apple.grid_location:
                         apple.new_location(self.players)
                         player.increase_size()
+                # Self-collision
+                # # Just doing it for 1 snake right now, fix later. 
+                for segment in player.body:
+                    if player.grid_location == segment.grid_location:
+                        print("Game over, loser.")
+                        self._running = False
+                # Out-of-bounds kill
+                if not player.within_bounds():
+                    print("Watch out, loser.")
+                    self._running = False
 
             self.on_loop()
             self.on_render()
