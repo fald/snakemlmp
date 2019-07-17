@@ -19,8 +19,9 @@ class App:
     def on_init(self):
         init = initialize()
         self._running = True
-        self._display_surf = init['display']
-        self._image_surf = init['image']
+        self._main_surf = init['main_display']
+        self._game_surf = init['game_display']
+        self._score_surf = init['score_display']
         self._fonts = init['fonts']
         self._clock = init['clock']
         self.players = init['players']
@@ -36,12 +37,14 @@ class App:
 
     def on_render(self):
         # refresh(self._display_surf, self._image_surf, self.players[0].location)
-        self._display_surf.fill(settings.BACKGROUND)
+        self._main_surf.fill(Color(50, 50, 50))
+        self._game_surf.fill(settings.BACKGROUND)
+        self._score_surf.fill(settings.BACKGROUND)
         for apple in self.apples:
-            apple.render(self._display_surf)
+            apple.render(self._game_surf)
         for player in self.players:
-            player.render(self._display_surf, self._image_surf)
-
+            player.render(self._game_surf)
+        self._main_surf.blit(self._game_surf, (0, 0))
         pygame.display.flip()
 
     def on_cleanup(self):
@@ -57,28 +60,39 @@ class App:
         
         while(self._running):
             pygame.event.pump()
-            keys = pygame.key.get_pressed()
-            
-            if keys[K_RIGHT]:
-            #     self.players[0].move_right()
-                self.players[0].set_direction(Directions.RIGHT)
-            if keys[K_LEFT]:
-            #     self.players[0].move_left()
-                self.players[0].set_direction(Directions.LEFT)
-            if keys[K_UP]:
-            #     self.players[0].move_up()
-                self.players[0].set_direction(Directions.UP)
-            if keys[K_DOWN]:
-            #     self.players[0].move_down()
-                self.players[0].set_direction(Directions.DOWN)
-            if keys[K_ESCAPE]:
-                self._running = False
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == K_RIGHT:
+                        self.players[0].set_direction(Directions.RIGHT)
+                    elif event.key == K_LEFT:
+                        self.players[0].set_direction(Directions.LEFT)
+                    elif event.key == K_UP:
+                        self.players[0].set_direction(Directions.UP)
+                    elif event.key == K_DOWN:
+                        self.players[0].set_direction(Directions.DOWN)
+                    elif event.key == K_ESCAPE:
+                        self._running = False
+            # keys = pygame.key.get_pressed()
+            # if keys[K_RIGHT]:
+            # #     self.players[0].move_right()
+            #     self.players[0].set_direction(Directions.RIGHT)
+            # if keys[K_LEFT]:
+            # #     self.players[0].move_left()
+            #     self.players[0].set_direction(Directions.LEFT)
+            # if keys[K_UP]:
+            # #     self.players[0].move_up()
+            #     self.players[0].set_direction(Directions.UP)
+            # if keys[K_DOWN]:
+            # #     self.players[0].move_down()
+            #     self.players[0].set_direction(Directions.DOWN)
+            # if keys[K_ESCAPE]:
+            #     self._running = False
 
             for player in self.players:
                 player.update()
                 for apple in self.apples:
-                    if player.location == apple.location:
-                        apple.new_location(self.players, self._display_surf.get_size())
+                    if player.grid_location == apple.grid_location:
+                        apple.new_location(self.players)
                         player.increase_size()
 
             self.on_loop()
