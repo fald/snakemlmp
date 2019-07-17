@@ -11,8 +11,8 @@ class Apple(Block):
                 candidate_locations.append((i, j))
         for snake in snakes:
             for segment in snake.body:
-                if segment in candidate_locations: # Just for while the snake can go out of bounds
-                    candidate_locations.remove(segment)
+                if segment.grid_location in candidate_locations: # Just for while the snake can go out of bounds
+                    candidate_locations.remove(segment.grid_location)
             candidate_locations.remove(snake.grid_location)
         self.grid_x, self.grid_y = choice(candidate_locations)
 
