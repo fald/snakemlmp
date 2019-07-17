@@ -32,7 +32,10 @@ class App:
         pass
 
     def on_render(self):
-        refresh(self._display_surf, self._image_surf, self.players[0].location)
+        # refresh(self._display_surf, self._image_surf, self.players[0].location)
+        self._display_surf.fill(settings.BACKGROUND)
+        for player in self.players:
+            player.render(self._display_surf, self._image_surf)
         pygame.display.flip()
 
     def on_cleanup(self):

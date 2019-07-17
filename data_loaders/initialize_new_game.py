@@ -19,7 +19,7 @@ def initialize(num_players=1):
         icon_image = None
     body_image = pygame.image.load(settings.SNAKE_BODY).convert()
 
-    players = [Snake() for i in range(num_players)]
+    players = [Snake(speed=body_image.get_size()[0]) for i in range(num_players)]
 
     return {
         'display': game_display,
