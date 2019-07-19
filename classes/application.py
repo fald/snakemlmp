@@ -1,7 +1,7 @@
 from constants import settings
 from constants.enums import Directions
 from classes.snake import Snake
-from data_loaders.initialize_new_game import initialize
+from data_loaders.initialize_new_game import initialize, new_game
 from render_functions.render import refresh
 import pygame, time
 from pygame.locals import *
@@ -9,24 +9,27 @@ from pygame.locals import *
 class App:
     def __init__(self):
         self._running = True
-        self._display_surf = None
-        self._image_surf = None
-        self.players = []
-        self._fonts = []
+        self._displays = []
         self._clock = None
+        self._fonts = []
+        self._images = []
+        self._surfaces_to_render = []
+
+        self.players = []
+        self.apples = []
         self.game_speed = 0
 
     def on_init(self):
         init = initialize()
         self._running = True
-        self._main_surf = init['main_display']
-        self._game_surf = init['game_display']
-        self._score_surf = init['score_display']
-        self._fonts = init['fonts']
+        self._displays = init['displays']
         self._clock = init['clock']
-        self.players = init['players']
-        self.game_speed = init['game_speed']
-        self.apples = init['apples']
+        self._fonts = init['fonts']
+        self._images = init['images']
+        self._surfaces_to_render = [
+            self._surfaces['main'],
+            self._surfaces['main_menu']
+            ]
 
     def on_event(self, event):
         if event.type == QUIT:
@@ -36,8 +39,7 @@ class App:
         pass
 
     def on_render(self):
-        # refresh(self._display_surf, self._image_surf, self.players[0].location)
-        self._main_surf.fill(Color(50, 50, 50))
+        self._main_surf.fill(settings.WINDOW_BACKGROUND)
         self._game_surf.fill(settings.BACKGROUND)
         self._score_surf.fill(settings.BACKGROUND)
         for apple in self.apples:
@@ -51,10 +53,6 @@ class App:
         pygame.quit()
 
     def on_execute(self):
-        # Clean this up, handle keys separately like in roguelike, and taking into account control schemes,
-        # just trying to get a base done right now
-        # Also allow buffering on movement keys
-        # Also have different handlers for different game states; menus, play, pause
         if self.on_init() == False:
             self._running = False
         
