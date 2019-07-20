@@ -6,8 +6,8 @@ from classes.grid import Grid
 from random import randint
 
 def new_game(images, num_players=settings.NUM_PLAYERS, num_apples=1):
-    players = [Snake(head_image=snake_head_image, body_image=snake_body_image) for i in range(num_players)]
-    apples = [Apple((-1, -1), apple_image) for i in range(num_apples)]
+    players = [Snake(head_image=images['snake_head'], body_image=images['snake_body']) for i in range(num_players)]
+    apples = [Apple((-1, -1), images['apple']) for i in range(num_apples)]
     for apple in apples:
         apple.new_location(players)
     game_speed = settings.START_GAME_SPEED
@@ -18,29 +18,48 @@ def new_game(images, num_players=settings.NUM_PLAYERS, num_apples=1):
         'game_speed': game_speed
     }
 
-
 def initialize():
     pygame.init()
-
-    # displays = {
-    #   'name': {
-    #       'surface': surface,
-    #       'location': location,
-    #       'color': background_fill
-    #   }
-    # }
     # Accessing: displays['name']['property'] <- Gross, but whatever.
     displays = {
-        'main': pygame.display.set_mode(settings.RESOLUTION),
-        'play_area': pygame.Surface((
-            settings.PLAY_AREA_DIMENSIONS[0] * settings.BLOCK_SIZE,
-            settings.PLAY_AREA_DIMENSIONS[1] * settings.BLOCK_SIZE
-        )),
-        'score': pygame.Surface(settings.SCORE_BOARD_RESOLUTION),
-        'ai_settings': pygame.Surface(settings.AI_SETTINGS_RESOLUTION),
-        'main_menu': pygame.Surface(settings.MAIN_MENU_RESOLUTION),
-        'pause_menu': pygame.Surface(settings.PAUSE_MENU_RESOLUTION),
-        'game_settings': pygame.Surface(settings.GAME_SETTINGS_RESOLUTION)
+        'main': {
+            'surface': pygame.display.set_mode(settings.RESOLUTION),
+            'color': settings.WINDOW_BACKGROUND,
+            'location': None # Pointless!
+        },
+        'play_area': {
+            'surface': pygame.Surface((
+                settings.PLAY_AREA_DIMENSIONS[0] * settings.BLOCK_SIZE,
+                settings.PLAY_AREA_DIMENSIONS[1] * settings.BLOCK_SIZE
+                )).
+            'color': settings.BACKGROUND,
+            'location': settings.PLAY_AREA_LOCATION
+        }.
+        'score': {
+            'surface': pygame.Surface(settings.SCORE_BOARD_RESOLUTION),
+            'color': settings.BACKGROUND,
+            'location': settings.SCORE_BOARD_LOCATION
+        },
+        'ai_settings': {
+            'suface': pygame.Surface(settings.AI_SETTINGS_RESOLUTION),
+            'color': settings.BACKGROUND,
+            'location': settings.AI_SETTINGS_LOCATION
+        },
+        'main_menu': {
+            'suface': pygame.Surface(settings.MAIN_MENU_RESOLUTION),
+            'color': settings.BACKGROUND,
+            'location': settings.MAIN_MENU_LOCATION
+        },
+        'pause_menu': {
+            'suface': pygame.Surface(settings.PAUSE_MENU_RESOLUTION),
+            'color': settings.BACKGROUND,
+            'location': settings.PAUSE_MENU_LOCATION
+        },
+        'game_settings': {
+            'suface': pygame.Surface(settings.GAME_SETTINGS_RESOLUTION),
+            'color': settings.BACKGROUND,
+            'location': settings.GAME_SETTINGS_LOCATION
+        }
     }
 
     pygame.display.set_caption(settings.WINDOW_TITLE)
@@ -64,7 +83,6 @@ def initialize():
         'snake_head': pygame.image.load(settings.SNAKE_HEAD_IMAGE).convert(),
         'apple': pygame.image.load(settings.APPLE_IMAGE).convert()
     }
-
     
     return {
         'displays': displays,
