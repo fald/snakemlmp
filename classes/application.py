@@ -27,8 +27,8 @@ class App:
         self._fonts = init['fonts']
         self._images = init['images']
         self._surfaces_to_render = [
-            self._surfaces['main'],
-            self._surfaces['main_menu']
+            self._displays['main'],
+            self._displays['main_menu']
             ]
 
     def on_event(self, event):
@@ -39,9 +39,13 @@ class App:
         pass
 
     def on_render(self):
-        self._main_surf.fill(settings.WINDOW_BACKGROUND)
-        self._game_surf.fill(settings.BACKGROUND)
-        self._score_surf.fill(settings.BACKGROUND)
+        for surf in self._surfaces_to_render:
+            # surf.fill-
+            # for apple, for player; draw 'em
+            # main.blit(sub, location)
+            pass
+
+
         for apple in self.apples:
             apple.render(self._game_surf)
         for player in self.players:
