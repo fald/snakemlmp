@@ -24,14 +24,13 @@ class Window:
     @property
     def abs_location(self):
         x, y = (
-            relative_location * (main_resolution - own_resolution + 2 * Window.window_buffer) + Window.window_buffer
+            relative_location * (main_resolution - own_resolution - 2 * Window.window_buffer) + Window.window_buffer
             for 
             relative_location, main_resolution, own_resolution 
             in 
             zip(self.rel_location.value, Window.main_window_resolution, self.resolution)
             # self.rel_location * (main_window_resolution - self.resolution + 2 * window_buffer) - window_buffer
         )
-        print("My abs location is: " + str((x,y)))
         return x, y
 
     def add_component(self, component):
