@@ -1,10 +1,11 @@
 from constants import settings
 
 class Block:
-    def __init__(self, location, image):
+    def __init__(self, location, image, visible=True):
         self.grid_x = location[0]
         self.grid_y = location[1]
         self.image = image
+        self.visible = visible
 
     @property
     def grid_location(self):
@@ -17,7 +18,8 @@ class Block:
         return self.abs_x, self.abs_y  
 
     def render(self, onto_window):
-        onto_window.blit(self.image, self.abs_location)
+        if self.visible:
+            onto_window.blit(self.image, self.abs_location)
 
     def within_bounds(self, grid=settings.PLAY_AREA_DIMENSIONS):
         if (
@@ -27,4 +29,15 @@ class Block:
             return False
         return True
 
+    def roll_around(self):
+        # Eyy, could probably compress this, but why
+        if not self.within_bounds():
+            if self.grid_x < 0:
+                self.grid_x = grid[0] - 1
+            elif self.grid_x > grid[0]:
+                self.grid_x = 0
 
+            if self.grid_y < 0:
+                self.grid_y = grid[1] - 1
+            elif self.grid_y > grid[1]:
+                self.grid_y = 0

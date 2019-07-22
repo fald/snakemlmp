@@ -13,7 +13,6 @@ class App:
         self._clock = None
         self._fonts = []
         self._images = []
-        self._surfaces_to_render = []
 
         self.players = []
         self.apples = []
@@ -39,19 +38,8 @@ class App:
         pass
 
     def on_render(self):
-        for surf in self._surfaces_to_render:
-            # surf.fill-
-            # for apple, for player; draw 'em
-            # main.blit(sub, location)
-            pass
-
-
-        for apple in self.apples:
-            apple.render(self._game_surf)
-        for player in self.players:
-            player.render(self._game_surf)
-        self._main_surf.blit(self._game_surf, (0, 0))
-        pygame.display.flip()
+        # ew
+        self._displays['main'].render()
 
     def on_cleanup(self):
         pygame.quit()

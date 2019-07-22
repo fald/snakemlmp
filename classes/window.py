@@ -8,14 +8,16 @@ class Window:
 
     def __init__(
         self, resolution=RESOLUTION, surface=None, color=BACKGROUND,
-        image=None, rel_location=Locations.CENTER
+        image=None, rel_location=Locations.CENTER, components=[], visible=True
         ):
         self.resolution = resolution
         self.color = color
         self.image = image
         self.rel_location = rel_location
-
-        self.surface = pygame.Surface(self.resolution)
+        self.components = components
+        self.visible = visible
+        if surface is None:
+            self.surface = pygame.Surface(self.resolution)
 
     @property
     def abs_location(self):
@@ -28,3 +30,19 @@ class Window:
             # self.rel_location * (main_window_resolution - self.resolution + 2 * window_buffer) - window_buffer
         )
         return x, y
+
+    def render(self, onto_window):
+        if self.visible:
+            self.surface.fill(self.color)
+            for component in self.components:
+                if component.visible:
+                    component.render(self.surface)
+            onto_window.blit(self.surface, self.abs_location)
+
+    def render(self):
+        # Main window use only? Assume visible.
+        self.surface.fill(self.color)
+        for component in self.components:
+            if component.visible:
+                component.render(self.surface)
+        pygame.display.flip()

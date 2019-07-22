@@ -4,6 +4,7 @@ import pygame
 # TODO: 
 #   New window class...
 #   Refactor application to make use of new initialize new game method
+#   Add render order
 #   Control setup
 #   Game over when no more apples to eat
 #   Put collisions elsewhere than in application loop
@@ -14,6 +15,7 @@ import pygame
 #   AI control, AI options on-screen
 #   Player control schemes
 #   Sanity checks?
+# This shit is too overengineered and I haven't even got to the fucking AI yet.
 
 if __name__ == "__main__":
     window = App()

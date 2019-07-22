@@ -65,15 +65,3 @@ class Snake(Block):
 
         if not not_allowed[direction] == self.direction:
             self.input_buffer.append(direction)
-
-    # def move_right(self):
-    #     self.x += self.speed
-
-    # def move_left(self):
-    #     self.x -= self.speed
-
-    # def move_up(self):
-    #     self.y -= self.speed
-
-    # def move_down(self):
-    #     self.y += self.speed

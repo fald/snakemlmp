@@ -3,6 +3,7 @@ from constants import settings
 from classes.snake import Snake
 from classes.apple import Apple
 from classes.grid import Grid
+from classes.window import Window
 from random import randint
 
 def new_game(images, num_players=settings.NUM_PLAYERS, num_apples=1):
@@ -20,46 +21,20 @@ def new_game(images, num_players=settings.NUM_PLAYERS, num_apples=1):
 
 def initialize():
     pygame.init()
-    # Accessing: displays['name']['property'] <- Gross, but whatever.
+
+    play_area_resolution = tuple(
+        dimension * settings.BLOCK_SIZE for dimension in settings.PLAY_AREA_DIMENSIONS
+    )
+    
     displays = {
-        'main': {
-            'surface': pygame.display.set_mode(settings.RESOLUTION),
-            'color': settings.WINDOW_BACKGROUND,
-            'location': None # Pointless!
-        },
-        'play_area': {
-            'surface': pygame.Surface((
-                settings.PLAY_AREA_DIMENSIONS[0] * settings.BLOCK_SIZE,
-                settings.PLAY_AREA_DIMENSIONS[1] * settings.BLOCK_SIZE
-                )).
-            'color': settings.BACKGROUND,
-            'location': settings.PLAY_AREA_LOCATION
-        }.
-        'score': {
-            'surface': pygame.Surface(settings.SCORE_BOARD_RESOLUTION),
-            'color': settings.BACKGROUND,
-            'location': settings.SCORE_BOARD_LOCATION
-        },
-        'ai_settings': {
-            'suface': pygame.Surface(settings.AI_SETTINGS_RESOLUTION),
-            'color': settings.BACKGROUND,
-            'location': settings.AI_SETTINGS_LOCATION
-        },
-        'main_menu': {
-            'suface': pygame.Surface(settings.MAIN_MENU_RESOLUTION),
-            'color': settings.BACKGROUND,
-            'location': settings.MAIN_MENU_LOCATION
-        },
-        'pause_menu': {
-            'suface': pygame.Surface(settings.PAUSE_MENU_RESOLUTION),
-            'color': settings.BACKGROUND,
-            'location': settings.PAUSE_MENU_LOCATION
-        },
-        'game_settings': {
-            'suface': pygame.Surface(settings.GAME_SETTINGS_RESOLUTION),
-            'color': settings.BACKGROUND,
-            'location': settings.GAME_SETTINGS_LOCATION
-        }
+        # Main be separate in the application class?
+        'main': Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.WINDOW_BACKGROUND),
+        'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND, rel_location=settings.PLAY_AREA_LOCATION),
+        'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.SCORE_BOARD_LOCATION),
+        'ai_settings': Window(resolution=settings.AI_SETTINGS_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.AI_SETTINGS_LOCATION),
+        'main_menu': Window(resolution=settings.MAIN_MENU_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.MAIN_MENU_LOCATION),
+        'pause_menu': Window(resolution=settings.PAUSE_MENU_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.PAUSE_MENU_LOCATION),
+        'game_settings': Window(resolution=settings.GAME_SETTINGS_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.GAME_SETTINGS_LOCATION),
     }
 
     pygame.display.set_caption(settings.WINDOW_TITLE)
