@@ -15,7 +15,7 @@ def new_game(images, num_players=settings.NUM_PLAYERS, num_apples=1):
 
     return {
         'players': players,
-        'apples': apple,
+        'apples': apples,
         'game_speed': game_speed
     }
 
@@ -25,17 +25,22 @@ def initialize():
     play_area_resolution = tuple(
         dimension * settings.BLOCK_SIZE for dimension in settings.PLAY_AREA_DIMENSIONS
     )
-    
+
     displays = {
         # Main be separate in the application class?
-        'main': Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.WINDOW_BACKGROUND),
-        'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND, rel_location=settings.PLAY_AREA_LOCATION),
-        'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.SCORE_BOARD_LOCATION),
-        'ai_settings': Window(resolution=settings.AI_SETTINGS_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.AI_SETTINGS_LOCATION),
-        'main_menu': Window(resolution=settings.MAIN_MENU_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.MAIN_MENU_LOCATION),
-        'pause_menu': Window(resolution=settings.PAUSE_MENU_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.PAUSE_MENU_LOCATION),
-        'game_settings': Window(resolution=settings.GAME_SETTINGS_RESOLUTION, color=settings.BACKGROUND, rel_location=settings.GAME_SETTINGS_LOCATION),
+        # 'main': Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.BACKGROUND_MAIN),
+        'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND_PLAY_AREA, rel_location=settings.PLAY_AREA_LOCATION),
+        'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND_SCORE, rel_location=settings.SCORE_BOARD_LOCATION),
+        'ai_settings': Window(resolution=settings.AI_SETTINGS_RESOLUTION, color=settings.BACKGROUND_AI_SETTINGS, rel_location=settings.AI_SETTINGS_LOCATION),
+        'main_menu': Window(resolution=settings.MAIN_MENU_RESOLUTION, color=settings.BACKGROUND_MAIN_MENU, rel_location=settings.MAIN_MENU_LOCATION),
+        'pause_menu': Window(resolution=settings.PAUSE_MENU_RESOLUTION, color=settings.BACKGROUND_PAUSE_MENU, rel_location=settings.PAUSE_MENU_LOCATION),
+        'game_settings': Window(resolution=settings.GAME_SETTINGS_RESOLUTION, color=settings.BACKGROUND_GAME_SETTINGS, rel_location=settings.GAME_SETTINGS_LOCATION),
     }
+
+    components = list(displays.values())
+    main = Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.BACKGROUND_MAIN, components=components)
+
+    displays['main'] = main
 
     pygame.display.set_caption(settings.WINDOW_TITLE)
     

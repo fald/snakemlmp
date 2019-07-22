@@ -2,7 +2,6 @@ from classes.application import App
 import pygame
 
 # TODO: 
-#   New window class...
 #   Refactor application to make use of new initialize new game method
 #   Add render order
 #   Control setup
