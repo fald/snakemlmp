@@ -2,6 +2,7 @@ from classes.application import App
 import pygame
 
 # TODO: 
+#   New window class...
 #   Refactor application to make use of new initialize new game method
 #   Control setup
 #   Game over when no more apples to eat
