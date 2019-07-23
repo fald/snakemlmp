@@ -51,10 +51,11 @@ def initialize():
     score_display = Window(
         surface=fonts[0].render("Score: 0", True, (255, 0, 0)), 
         visible=True, resolution=(10, 10), 
-        color=(255, 0, 255), rel_location=Locations.TOP_LEFT, components=[]
+        color=None, rel_location=Locations.TOP_LEFT, components=[]
         )
-    score_display.surface.set_colorkey((255, 0, 255))
-    displays['score'].components.append(score_display)
+    # score_display.surface.set_colorkey((255, 0, 255))
+    # score_display.surface.set_alpha(0)
+    displays['score'].add_component(score_display)
 
     # Add components
 

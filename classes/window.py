@@ -43,14 +43,16 @@ class Window:
         # lol functions don't overload like I'm used to, this'll do for now.
         if onto_window is not None:
             if self.visible:
-                self.surface.fill(self.color)
+                if self.color is not None:
+                    self.surface.fill(self.color)
                 for component in self.components:
                     if component.visible:
                         component.render(self.surface)
                 onto_window.blit(self.surface, self.abs_location)
         else:
             # Main window use only? Assume visible.
-            self.surface.fill(self.color)
+            if self.color is not None:
+                self.surface.fill(self.color)
             for component in self.components:
                 if component.visible:
                     component.render(self.surface)
