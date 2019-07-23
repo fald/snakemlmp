@@ -9,7 +9,7 @@ from pygame.locals import *
 class App:
     def __init__(self):
         self._running = True
-        self._displays = []
+        self._displays = {}
         self._clock = None
         self._fonts = []
         self._images = []
@@ -32,7 +32,7 @@ class App:
 
         #
         #
-        # To be removed and put elsewhere.
+        # To be removed and put elsewhere, on_newgame?
         #
         #
         game_vars = new_game(images=self._images)

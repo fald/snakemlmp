@@ -2,6 +2,9 @@ from classes.application import App
 import pygame
 
 # TODO: 
+#   Display stuff on sub windows.
+#   Have stuff on sub windows do stuff
+#   Set controls to only work in correct game state
 #   Add render order
 #   Control setup
 #   Game over when no more apples to eat

@@ -8,13 +8,16 @@ class Window:
 
     def __init__(
         self, resolution=RESOLUTION, surface=None, color=BACKGROUND,
-        image=None, rel_location=Locations.CENTER, components=[], visible=False
+        image=None, rel_location=Locations.CENTER, components=None, visible=False
         ):
         self.resolution = resolution
         self.color = color
         self.image = image
         self.rel_location = rel_location
-        self.components = components
+        if components is None:
+            self.components = []
+        else:
+            self.components = components
         self.visible = visible
         if surface is None:
             self.surface = pygame.Surface(self.resolution)

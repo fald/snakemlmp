@@ -1,5 +1,6 @@
 import pygame
 from constants import settings
+from constants.enums import Locations
 from classes.snake import Snake
 from classes.apple import Apple
 from classes.grid import Grid
@@ -26,6 +27,12 @@ def initialize():
         dimension * settings.BLOCK_SIZE for dimension in settings.PLAY_AREA_DIMENSIONS
     )
 
+    fonts = [
+        pygame.font.SysFont(settings.FONT, settings.FONT_SMALL, settings.FONT_BOLD),
+        pygame.font.SysFont(settings.FONT, settings.FONT_MEDIUM, settings.FONT_BOLD),
+        pygame.font.SysFont(settings.FONT, settings.FONT_LARGE, settings.FONT_BOLD),
+    ]
+
     displays = {
         # Main be separate in the application class?
         # 'main': Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.BACKGROUND_MAIN),
@@ -39,6 +46,17 @@ def initialize():
 
     components = list(displays.values())
     main = Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.BACKGROUND_MAIN, components=components)
+    # Create components
+    # Initial score component, must be updated when score is.
+    score_display = Window(
+        surface=fonts[0].render("Score: 0", True, (255, 0, 0)), 
+        visible=True, resolution=(10, 10), 
+        color=(255, 0, 255), rel_location=Locations.TOP_LEFT, components=[]
+        )
+    score_display.surface.set_colorkey((255, 0, 255))
+    displays['score'].components.append(score_display)
+
+    # Add components
 
     displays['main'] = main
 
@@ -46,11 +64,7 @@ def initialize():
     
     clock = pygame.time.Clock()
     
-    fonts = [
-        pygame.font.SysFont(settings.FONT, settings.FONT_SMALL, settings.FONT_BOLD),
-        pygame.font.SysFont(settings.FONT, settings.FONT_MEDIUM, settings.FONT_BOLD),
-        pygame.font.SysFont(settings.FONT, settings.FONT_LARGE, settings.FONT_BOLD),
-    ]
+
     
     if settings.WINDOW_ICON:
         icon_image = pygame.image.load(settings.WINDOW_ICON).convert()
@@ -63,7 +77,7 @@ def initialize():
         'snake_head': pygame.image.load(settings.SNAKE_HEAD_IMAGE).convert(),
         'apple': pygame.image.load(settings.APPLE_IMAGE).convert()
     }
-    
+
     return {
         'displays': displays,
         'clock': clock,
