@@ -8,16 +8,21 @@ class Window:
 
     def __init__(
         self, resolution=RESOLUTION, surface=None, color=BACKGROUND,
-        image=None, rel_location=Locations.CENTER, components=None, visible=False
+        image=None, rel_location=Locations.CENTER, components=None, 
+        visible=False, text_components=None
         ):
         self.resolution = resolution
         self.color = color
         self.image = image
         self.rel_location = rel_location
         if components is None:
-            self.components = []
+            self.components = {}
         else:
             self.components = components
+        if text_components is None:
+            self.text_components = {}
+        else:
+            self.text_components = text_components
         self.visible = visible
         if surface is None:
             self.surface = pygame.Surface(self.resolution)
@@ -37,7 +42,13 @@ class Window:
         return x, y
 
     def add_component(self, component):
-        self.components.append(component)
+        self.components.update(component)
+
+    def add_components(self, components):
+        self.components.update(components)
+
+    def render_text(self):
+        pass
 
     def render(self, onto_window=None):
         # lol functions don't overload like I'm used to, this'll do for now.
@@ -46,14 +57,15 @@ class Window:
                 if self.color is not None:
                     self.surface.fill(self.color)
                 for component in self.components:
-                    if component.visible:
-                        component.render(self.surface)
+                    # hasattr(self.components[component], 'visible') and 
+                    if self.components[component].visible:
+                        self.components[component].render(self.surface)
                 onto_window.blit(self.surface, self.abs_location)
         else:
             # Main window use only? Assume visible.
             if self.color is not None:
                 self.surface.fill(self.color)
             for component in self.components:
-                if component.visible:
-                    component.render(self.surface)
+                if self.components[component].visible:
+                    self.components[component].render(self.surface)
             pygame.display.flip()

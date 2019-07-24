@@ -21,7 +21,7 @@ class Snake(Block):
         self.body = []
         self.increase = start_length - 1
         self.body_image = body_image
-        self.score = 0
+        self.score = -start_length
 
     def update(self):
         if len(self.input_buffer) > 0:

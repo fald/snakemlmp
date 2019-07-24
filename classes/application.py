@@ -9,7 +9,8 @@ from pygame.locals import *
 class App:
     def __init__(self):
         self._running = True
-        self._displays = {}
+        # self._displays = {}
+        self._display = None
         self._clock = None
         self._fonts = []
         self._images = []
@@ -23,7 +24,8 @@ class App:
     def on_init(self):
         init = initialize()
         self._running = True
-        self._displays = init['displays']
+        # self._displays = init['displays']
+        self._display = init['display']
         self._clock = init['clock']
         self._fonts = init['fonts']
         self._images = init['images']
@@ -39,22 +41,25 @@ class App:
         self.players = game_vars['players']
         self.apples = game_vars['apples']
         self.game_speed = game_vars['game_speed']
-        self._displays['play_area'].components = [self.players[0], self.apples[0]]
+        self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
         
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.
-        for display in self._displays:
-            self._displays[display].visible = False
+        # Ew.
+        for display in self._display.components:
+            # self._displays[display].visible = False
+            self._display.components[display].visible = False
 
         if state == GameStates.MAIN_MENU:
-            self._displays['main_menu'].visible = True
+            # self._displays['main_menu'].visible = True
+            self._display.components['main_menu'].visible = True
         elif state == GameStates.PAUSED:
-            self._displays['pause_menu'].visible = True
+            self._display.components['pause_menu'].visible = True
         elif state == GameStates.SETTINGS:
-            self._displays['game_settings'] = True
+            self._display.components['game_settings'] = True
         elif state == GameStates.PLAYING:
             for display in ['play_area', 'score', 'ai_settings']:
-                self._displays[display].visible = True
+                self._display.components[display].visible = True
         elif state == GameStates.NEW_GAME:
             pass
         elif state == GameStates.GAME_OVER:
@@ -73,7 +78,7 @@ class App:
 
     def on_render(self):
         # ew
-        self._displays['main'].render()
+        self._display.render()
 
     def on_cleanup(self):
         pygame.quit()
@@ -116,6 +121,7 @@ class App:
 
             self.on_loop()
             self.on_render()
+            self._display.components['score'].render(self._display.surface)
 
             self._clock.tick(self.game_speed)
             # self.game_speed += 1

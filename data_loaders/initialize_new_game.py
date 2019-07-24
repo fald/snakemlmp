@@ -44,28 +44,29 @@ def initialize():
         'game_settings': Window(resolution=settings.GAME_SETTINGS_RESOLUTION, color=settings.BACKGROUND_GAME_SETTINGS, rel_location=settings.GAME_SETTINGS_LOCATION),
     }
 
-    components = list(displays.values())
-    main = Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.BACKGROUND_MAIN, components=components)
-    # Create components
-    # Initial score component, must be updated when score is.
-    score_display = Window(
-        surface=fonts[0].render("Score: 0", True, (255, 0, 0)), 
-        visible=True, resolution=(10, 10), 
-        color=None, rel_location=Locations.TOP_LEFT, components=[]
+    main_display = Window(
+        resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), 
+        color=settings.BACKGROUND_MAIN, components=displays
         )
-    # score_display.surface.set_colorkey((255, 0, 255))
-    # score_display.surface.set_alpha(0)
-    displays['score'].add_component(score_display)
 
-    # Add components
+    # main_components = list(displays.values())
+    # displays['main'].add_components(main_components)
 
-    displays['main'] = main
+    # Ew
+    # main_display.components['score'].surface = fonts[1].render("Eat shit and/or die, please.", True, (255, 0, 0))
+
+    # Can't get it to work making the main score display have this surface, and I have no idea why!
+    score_display = Window(
+        surface=fonts[1].render("Score: 0", False, (255, 0, 0)), 
+        visible=True, resolution=(100, 100), 
+        color=None, rel_location=Locations.TOP_LEFT,
+        components={'draw_text': [0]}
+        )
+    displays['score'].add_component({'text': score_display})
 
     pygame.display.set_caption(settings.WINDOW_TITLE)
     
     clock = pygame.time.Clock()
-    
-
     
     if settings.WINDOW_ICON:
         icon_image = pygame.image.load(settings.WINDOW_ICON).convert()
@@ -80,7 +81,8 @@ def initialize():
     }
 
     return {
-        'displays': displays,
+        'display': main_display,
+        # 'displays': displays,
         'clock': clock,
         'fonts': fonts,
         'images': images
