@@ -7,8 +7,8 @@ from classes.grid import Grid
 from classes.window import Window
 from random import randint
 
-def new_game(images, num_players=settings.NUM_PLAYERS, num_apples=1):
-    players = [Snake(head_image=images['snake_head'], body_image=images['snake_body']) for i in range(num_players)]
+def new_game(images, score_board, num_players=settings.NUM_PLAYERS, num_apples=1):
+    players = [Snake(head_image=images['snake_head'], body_image=images['snake_body'], score_board=score_board) for i in range(num_players)]
     apples = [Apple((-1, -1), images['apple']) for i in range(num_apples)]
     for apple in apples:
         apple.new_location(players)
@@ -57,10 +57,10 @@ def initialize():
 
     # Can't get it to work making the main score display have this surface, and I have no idea why!
     score_display = Window(
-        surface=fonts[1].render("Score: 0", False, (255, 0, 0)), 
+        # surface=fonts[1].render("Score: 0", False, (255, 0, 0)), 
         visible=True, resolution=(100, 100), 
         color=None, rel_location=Locations.TOP_LEFT,
-        components={'draw_text': [0]}
+        properties={'draw_text': "Score: 0", 'font': fonts[1], 'color': (255, 0, 0), 'score': 0}
         )
     displays['score'].add_component({'text': score_display})
 

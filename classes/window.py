@@ -9,7 +9,7 @@ class Window:
     def __init__(
         self, resolution=RESOLUTION, surface=None, color=BACKGROUND,
         image=None, rel_location=Locations.CENTER, components=None, 
-        visible=False, text_components=None
+        visible=False, properties=None
         ):
         self.resolution = resolution
         self.color = color
@@ -19,10 +19,10 @@ class Window:
             self.components = {}
         else:
             self.components = components
-        if text_components is None:
-            self.text_components = {}
+        if properties is None:
+            self.properties = {}
         else:
-            self.text_components = text_components
+            self.properties = properties
         self.visible = visible
         if surface is None:
             self.surface = pygame.Surface(self.resolution)
@@ -47,11 +47,22 @@ class Window:
     def add_components(self, components):
         self.components.update(components)
 
+    def update(self, property_dict):
+        self.properties.update(property_dict)
+        self.render_text()
+
     def render_text(self):
-        pass
+        try:
+            print("rendering text")
+            self.surface = self.properties['font'].render(self.properties['draw_text'], False, self.properties['color'])
+            print("Success.")
+        except KeyError:
+            print("Error though")
+            pass
 
     def render(self, onto_window=None):
         # lol functions don't overload like I'm used to, this'll do for now.
+        # self.render_text()
         if onto_window is not None:
             if self.visible:
                 if self.color is not None:

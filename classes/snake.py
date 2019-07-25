@@ -7,7 +7,8 @@ from classes.block import Block
 class Snake(Block):
     def __init__(
         self, start_length=settings.START_LENGTH, head_image=settings.SNAKE_HEAD_IMAGE,
-        body_image=settings.SNAKE_BODY_IMAGE, start_direction=Directions.RIGHT, start_location=(0, 0)
+        body_image=settings.SNAKE_BODY_IMAGE, start_direction=Directions.RIGHT, start_location=(0, 0),
+        score_board=None
         ):
         super(Snake, self).__init__(start_location, head_image)
         self.direction = start_direction
@@ -22,6 +23,7 @@ class Snake(Block):
         self.increase = start_length - 1
         self.body_image = body_image
         self.score = -start_length
+        self.score_board = score_board
 
     def update(self):
         if len(self.input_buffer) > 0:
@@ -30,7 +32,7 @@ class Snake(Block):
         self.move(self.direction.value)
         if self.increase > 0:
             self.increase -= 1
-            self.score += 1
+            self.increase_score()
         else:
             self.body.pop(0)
         # self.move(self.direction.value)
@@ -51,6 +53,14 @@ class Snake(Block):
 
     def increase_size(self):
         self.increase += 1
+
+    def increase_score(self):
+        # Probably a better way to do this?
+        print("updating score")
+        print(self.score)
+        self.score += 1
+        self.score_board.update({'draw_text': "Score: {0}".format(self.score)})
+        # score_board.set_property({'score': self.score})
 
     def move(self, direction):
         self.grid_x += direction[0]

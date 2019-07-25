@@ -37,7 +37,8 @@ class App:
         # To be removed and put elsewhere, on_newgame?
         #
         #
-        game_vars = new_game(images=self._images)
+        # Fucking gross tbh
+        game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
         self.players = game_vars['players']
         self.apples = game_vars['apples']
         self.game_speed = game_vars['game_speed']
@@ -121,7 +122,7 @@ class App:
 
             self.on_loop()
             self.on_render()
-            self._display.components['score'].render(self._display.surface)
+            # self._display.components['score'].render(self._display.surface)
 
             self._clock.tick(self.game_speed)
             # self.game_speed += 1

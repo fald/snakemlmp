@@ -2,7 +2,7 @@ from classes.application import App
 import pygame
 
 # TODO: 
-#   Text render in windows
+#   Just remake this in tkinter??
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state
 #   Add render order
