@@ -53,11 +53,8 @@ class Window:
 
     def render_text(self):
         try:
-            print("rendering text")
             self.surface = self.properties['font'].render(self.properties['draw_text'], False, self.properties['color'])
-            print("Success.")
         except KeyError:
-            print("Error though")
             pass
 
     def render(self, onto_window=None):

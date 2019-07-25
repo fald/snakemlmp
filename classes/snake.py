@@ -22,7 +22,7 @@ class Snake(Block):
         self.body = []
         self.increase = start_length - 1
         self.body_image = body_image
-        self.score = -start_length
+        self.score = 1 - start_length
         self.score_board = score_board
 
     def update(self):
@@ -56,8 +56,6 @@ class Snake(Block):
 
     def increase_score(self):
         # Probably a better way to do this?
-        print("updating score")
-        print(self.score)
         self.score += 1
         self.score_board.update({'draw_text': "Score: {0}".format(self.score)})
         # score_board.set_property({'score': self.score})
