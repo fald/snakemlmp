@@ -25,7 +25,8 @@ class Snake(Block):
         self.score = 1 - start_length
         self.score_board = score_board
         self.parent = None
-        self.move_rule = MoveRules.WRAP_AROUND
+        # self.move_rule = MoveRules.WRAP_AROUND
+        self.move_rule = MoveRules.STANDARD
 
     def update(self):
         if len(self.input_buffer) > 0:

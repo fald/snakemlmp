@@ -32,18 +32,29 @@ class App:
 
         self.set_state(GameStates.PLAYING)
 
+        self.new_game()
         #
         #
         # To be removed and put elsewhere, on_newgame?
         #
         #
         # Fucking gross tbh
+        # game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
+        # self.players = game_vars['players']
+        # self.apples = game_vars['apples']
+        # self.game_speed = game_vars['game_speed']
+        # self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
+
+    def new_game(self):
         game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
         self.players = game_vars['players']
         self.apples = game_vars['apples']
         self.game_speed = game_vars['game_speed']
         self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
-        
+
+    def process(self, event, gamestate):
+        pass
+
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.
         # Ew.
@@ -91,6 +102,7 @@ class App:
         while(self._running):
             pygame.event.pump()
             for event in pygame.event.get():
+                # process(event, gamestate)
                 if event.type == pygame.KEYDOWN:
                     if event.key == K_RIGHT:
                         self.players[0].set_direction(Directions.RIGHT)
@@ -113,13 +125,13 @@ class App:
                 # # Just doing it for 1 snake right now, fix later. 
                 for segment in player.body:
                     if player.grid_location == segment.grid_location:
-                        self.on_init()
-                        print("Game over, loser.")
+                        # self.on_init()
+                        self.new_game()
                         # self._running = False
                 # Out-of-bounds kill
                 if not player.within_bounds():
                     # self.on_init()
-                    print("Watch out, loser.")
+                    self.new_game()
                     # self._running = False
 
             self.on_loop()
