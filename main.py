@@ -5,7 +5,6 @@ import pygame
 #   Just remake this in tkinter??
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state
-#   Add render order
 #   Control setup
 #   Game over when no more apples to eat
 #   Put collisions elsewhere than in application loop
@@ -15,6 +14,7 @@ import pygame
 #   Roll around walls
 #   Work with multiplayer or multiple snakes, whatever
 #   AI control, AI options on-screen
+#   Add render order
 #   Stop the clusterfuck, I want off Mr Firas' Wild Ride 
 #   Sanity checks?
 # This shit is too overengineered and I haven't even got to the fucking AI yet.

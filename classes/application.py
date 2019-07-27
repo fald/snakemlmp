@@ -113,12 +113,14 @@ class App:
                 # # Just doing it for 1 snake right now, fix later. 
                 for segment in player.body:
                     if player.grid_location == segment.grid_location:
+                        self.on_init()
                         print("Game over, loser.")
-                        self._running = False
+                        # self._running = False
                 # Out-of-bounds kill
                 if not player.within_bounds():
+                    # self.on_init()
                     print("Watch out, loser.")
-                    self._running = False
+                    # self._running = False
 
             self.on_loop()
             self.on_render()

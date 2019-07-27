@@ -1,5 +1,5 @@
 from constants import settings
-from constants.enums import Directions
+from constants.enums import Directions, MoveRules
 from pygame.locals import *
 from classes.block import Block
 
@@ -24,6 +24,8 @@ class Snake(Block):
         self.body_image = body_image
         self.score = 1 - start_length
         self.score_board = score_board
+        self.parent = None
+        self.move_rule = MoveRules.WRAP_AROUND
 
     def update(self):
         if len(self.input_buffer) > 0:
@@ -60,9 +62,22 @@ class Snake(Block):
         self.score_board.update({'draw_text': "Score: {0}".format(self.score)})
         # score_board.set_property({'score': self.score})
 
-    def move(self, direction):
-        self.grid_x += direction[0]
-        self.grid_y += direction[1]
+    def move(self, direction, grid_dimensions=settings.PLAY_AREA_DIMENSIONS):
+        if self.move_rule == MoveRules.WRAP_AROUND:
+            self.grid_x = (self.grid_x + direction[0]) % grid_dimensions[0]
+            self.grid_y = (self.grid_y + direction[1]) % grid_dimensions[1]
+        else:
+            self.grid_x += direction[0]
+            self.grid_y += direction[1]
+
+        # if self.grid_x + direction[0] < grid_dimensions[0]:
+        #     self.grid_x += direction[0]
+        # else:
+        #     pass
+        # if self.grid_y + direction[1] < grid_dimensions[1]:
+        #     self.grid_x += direction[1]
+        # else:
+        #     pass
     
     def set_direction(self, direction):
         # No doubling back on yourself, foo'

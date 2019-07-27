@@ -24,3 +24,8 @@ class GameStates(Enum):
     SETTINGS = 3
     GAME_OVER = 4
     NEW_GAME = 5
+
+class MoveRules(Enum):
+    STANDARD = 0
+    WRAP_AROUND = 1
+    
