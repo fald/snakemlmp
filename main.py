@@ -3,6 +3,9 @@ import pygame
 
 # TODO: 
 #   Just remake this in tkinter??
+#   Alternatively, sort of map things out on paper first, though
+#       that tends to lead to nothing happening at all instead of
+#       just trash happening...hm.
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state
 #   Control setup

@@ -51,13 +51,28 @@ class App:
         self.apples = game_vars['apples']
         self.game_speed = game_vars['game_speed']
         self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
+        self._state = GameStates.PLAYING
 
-    def process(self, event, gamestate):
-        pass
+    def process(self, event):
+        if self._state == GameStates.PLAYING:
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_RIGHT:
+                    self.players[0].set_direction(Directions.RIGHT)
+                elif event.key == K_LEFT:
+                    self.players[0].set_direction(Directions.LEFT)
+                elif event.key == K_UP:
+                    self.players[0].set_direction(Directions.UP)
+                elif event.key == K_DOWN:
+                    self.players[0].set_direction(Directions.DOWN)
+                elif event.key == K_ESCAPE:
+                    self._running = False
+
 
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.
         # Ew.
+        print("Settings state")
+        print(state)
         for display in self._display.components:
             # self._displays[display].visible = False
             self._display.components[display].visible = False
@@ -102,18 +117,18 @@ class App:
         while(self._running):
             pygame.event.pump()
             for event in pygame.event.get():
-                # process(event, gamestate)
-                if event.type == pygame.KEYDOWN:
-                    if event.key == K_RIGHT:
-                        self.players[0].set_direction(Directions.RIGHT)
-                    elif event.key == K_LEFT:
-                        self.players[0].set_direction(Directions.LEFT)
-                    elif event.key == K_UP:
-                        self.players[0].set_direction(Directions.UP)
-                    elif event.key == K_DOWN:
-                        self.players[0].set_direction(Directions.DOWN)
-                    elif event.key == K_ESCAPE:
-                        self._running = False
+                self.process(event)
+                # if event.type == pygame.KEYDOWN:
+                #     if event.key == K_RIGHT:
+                #         self.players[0].set_direction(Directions.RIGHT)
+                #     elif event.key == K_LEFT:
+                #         self.players[0].set_direction(Directions.LEFT)
+                #     elif event.key == K_UP:
+                #         self.players[0].set_direction(Directions.UP)
+                #     elif event.key == K_DOWN:
+                #         self.players[0].set_direction(Directions.DOWN)
+                #     elif event.key == K_ESCAPE:
+                #         self._running = False
 
             for player in self.players:
                 player.update()
