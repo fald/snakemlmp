@@ -34,7 +34,7 @@ class App:
         self._images = init['images']
 
         self.set_state(GameStates.PLAYING)
-
+        self.top_score = 0
         self.new_game()
 
     def new_game(self):
@@ -99,22 +99,12 @@ class App:
             try:
                 moves = list(self.players[0].controls.values())
                 window = self._display.components['play_area']
-                self.players[0].set_direction(self._ai.determine_move(window, moves))
+                self.players[0].set_direction(self._ai.determine_move(window)) #, moves))
             except:
                 print("AI not implemented yet, genius.")
+
             for event in pygame.event.get():
                 self.process(event)
-                # if event.type == pygame.KEYDOWN:
-                #     if event.key == K_RIGHT:
-                #         self.players[0].set_direction(Directions.RIGHT)
-                #     elif event.key == K_LEFT:
-                #         self.players[0].set_direction(Directions.LEFT)
-                #     elif event.key == K_UP:
-                #         self.players[0].set_direction(Directions.UP)
-                #     elif event.key == K_DOWN:
-                #         self.players[0].set_direction(Directions.DOWN)
-                #     elif event.key == K_ESCAPE:
-                #         self._running = False
 
             for player in self.players:
                 player.update()
@@ -127,6 +117,8 @@ class App:
                 for segment in player.body:
                     if player.grid_location == segment.grid_location:
                         # self.on_init()
+                        # Holy fuck.
+                        self.top_score = max(self.top_score, self._display.components['score'].components['text'].properties['score'])
                         self.new_game()
                         # self._running = False
                 # Out-of-bounds kill

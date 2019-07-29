@@ -7,7 +7,6 @@ import pygame
 #       that tends to lead to nothing happening at all instead of
 #       just trash happening...hm.
 #
-#   Implement better AI
 #   Implement ML AI
 #   Train ML AI
 #   Separate controls between ai/player
