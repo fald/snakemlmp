@@ -71,8 +71,6 @@ class App:
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.
         # Ew.
-        print("Settings state")
-        print(state)
         for display in self._display.components:
             # self._displays[display].visible = False
             self._display.components[display].visible = False

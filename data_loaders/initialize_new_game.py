@@ -14,6 +14,10 @@ def new_game(images, score_board, num_players=settings.NUM_PLAYERS, num_apples=1
         apple.new_location(players)
     game_speed = settings.START_GAME_SPEED
 
+
+    score_board.update({'draw_text': "Score: {0}".format(players[0].score)})
+    score_board.render_text()
+
     return {
         'players': players,
         'apples': apples,
