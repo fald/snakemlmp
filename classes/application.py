@@ -1,6 +1,7 @@
 from constants import settings
 from constants.enums import Directions, GameStates
 from classes.snake import Snake
+from classes import ai
 from data_loaders.initialize_new_game import initialize, new_game
 from render_functions.render import refresh
 import pygame, time
@@ -19,6 +20,8 @@ class App:
         self.apples = []
         self.game_speed = 0
 
+        self._ai = ai.Basic()
+
         self._state = GameStates.MAIN_MENU
 
     def on_init(self):
@@ -33,17 +36,6 @@ class App:
         self.set_state(GameStates.PLAYING)
 
         self.new_game()
-        #
-        #
-        # To be removed and put elsewhere, on_newgame?
-        #
-        #
-        # Fucking gross tbh
-        # game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
-        # self.players = game_vars['players']
-        # self.apples = game_vars['apples']
-        # self.game_speed = game_vars['game_speed']
-        # self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
 
     def new_game(self):
         game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
@@ -59,26 +51,14 @@ class App:
                 self.players[0].process_input(event.key)
                 if event.key == K_ESCAPE:
                     self._running = False
-                # if event.key == K_RIGHT:
-                #     self.players[0].set_direction(Directions.RIGHT)
-                # elif event.key == K_LEFT:
-                #     self.players[0].set_direction(Directions.LEFT)
-                # elif event.key == K_UP:
-                #     self.players[0].set_direction(Directions.UP)
-                # elif event.key == K_DOWN:
-                #     self.players[0].set_direction(Directions.DOWN)
-                # elif event.key == K_ESCAPE:
-                #     self._running = False
 
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.
         # Ew.
         for display in self._display.components:
-            # self._displays[display].visible = False
             self._display.components[display].visible = False
 
         if state == GameStates.MAIN_MENU:
-            # self._displays['main_menu'].visible = True
             self._display.components['main_menu'].visible = True
         elif state == GameStates.PAUSED:
             self._display.components['pause_menu'].visible = True
@@ -116,6 +96,12 @@ class App:
         
         while(self._running):
             pygame.event.pump()
+            try:
+                moves = list(self.players[0].controls.values())
+                window = self._display.components['play_area']
+                self.players[0].set_direction(self._ai.determine_move(window, moves))
+            except:
+                print("AI not implemented yet, genius.")
             for event in pygame.event.get():
                 self.process(event)
                 # if event.type == pygame.KEYDOWN:

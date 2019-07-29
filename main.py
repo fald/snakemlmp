@@ -7,14 +7,19 @@ import pygame
 #       that tends to lead to nothing happening at all instead of
 #       just trash happening...hm.
 #
+#   Implement better AI
+#   Implement ML AI
+#   Train ML AI
+#   Separate controls between ai/player
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state
 #   Game over when no more apples to eat
+#   Make use of roguelike style components?
 #   Put collisions elsewhere than in application loop
 #   Fix new game and application mixups
 #   Game state handling (not just crashing on game over lol)
 #   Menus - scoreboard, option settings
-#   Roll around walls
+#   Refactor everything once it works, ick.
 #   Work with multiplayer or multiple snakes, whatever
 #   AI control, AI options on-screen
 #   Add render order
