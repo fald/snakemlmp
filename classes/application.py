@@ -56,17 +56,19 @@ class App:
     def process(self, event):
         if self._state == GameStates.PLAYING:
             if event.type == pygame.KEYDOWN:
-                if event.key == K_RIGHT:
-                    self.players[0].set_direction(Directions.RIGHT)
-                elif event.key == K_LEFT:
-                    self.players[0].set_direction(Directions.LEFT)
-                elif event.key == K_UP:
-                    self.players[0].set_direction(Directions.UP)
-                elif event.key == K_DOWN:
-                    self.players[0].set_direction(Directions.DOWN)
-                elif event.key == K_ESCAPE:
+                self.players[0].process_input(event.key)
+                if event.key == K_ESCAPE:
                     self._running = False
-
+                # if event.key == K_RIGHT:
+                #     self.players[0].set_direction(Directions.RIGHT)
+                # elif event.key == K_LEFT:
+                #     self.players[0].set_direction(Directions.LEFT)
+                # elif event.key == K_UP:
+                #     self.players[0].set_direction(Directions.UP)
+                # elif event.key == K_DOWN:
+                #     self.players[0].set_direction(Directions.DOWN)
+                # elif event.key == K_ESCAPE:
+                #     self._running = False
 
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.

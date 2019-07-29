@@ -9,7 +9,6 @@ import pygame
 #
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state
-#   Control setup
 #   Game over when no more apples to eat
 #   Put collisions elsewhere than in application loop
 #   Fix new game and application mixups

@@ -71,15 +71,6 @@ class Snake(Block):
             self.grid_x += direction[0]
             self.grid_y += direction[1]
 
-        # if self.grid_x + direction[0] < grid_dimensions[0]:
-        #     self.grid_x += direction[0]
-        # else:
-        #     pass
-        # if self.grid_y + direction[1] < grid_dimensions[1]:
-        #     self.grid_x += direction[1]
-        # else:
-        #     pass
-    
     def set_direction(self, direction):
         # No doubling back on yourself, foo'
         not_allowed = {
@@ -91,3 +82,9 @@ class Snake(Block):
 
         if not not_allowed[direction] == self.direction:
             self.input_buffer.append(direction)
+
+    def process_input(self, input):
+        try:
+            self.set_direction(self.controls[input])
+        except KeyError:
+            pass
