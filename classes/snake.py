@@ -38,12 +38,6 @@ class Snake(Block):
             self.increase_score()
         else:
             self.body.pop(0)
-        # self.move(self.direction.value)
-        # self.snake.append(self.location)
-        # if self.increase == 0:
-        #     self.snake.pop(0)
-        # else:
-        #     self.increase -= 1
 
     def render(self, onto_window):
         for segment in self.body:

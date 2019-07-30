@@ -20,8 +20,7 @@ class App:
         self.apples = []
         self.game_speed = 0
 
-        self._ai = ai.Basic()
-
+        self._ai = ai.Defensive()
         self._state = GameStates.MAIN_MENU
 
     def on_init(self):
@@ -44,6 +43,7 @@ class App:
         self.game_speed = game_vars['game_speed']
         self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
         self._state = GameStates.PLAYING
+        self._ai.parent = self.players[0]
 
     def process(self, event):
         if self._state == GameStates.PLAYING:
@@ -97,10 +97,11 @@ class App:
         while(self._running):
             pygame.event.pump()
             try:
-                moves = list(self.players[0].controls.values())
+                # moves = list(self.players[0].controls.values())
                 window = self._display.components['play_area']
-                self.players[0].set_direction(self._ai.determine_move(window)) #, moves))
-            except:
+                self.players[0].set_direction(self._ai.determine_move(window, self.apples)) #, moves))
+            except Exception as e:
+                print(e)
                 print("AI not implemented yet, genius.")
 
             for event in pygame.event.get():
