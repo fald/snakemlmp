@@ -92,8 +92,10 @@ class Defensive(AI):
         best = list(set(apple).intersection(available))
         if len(best) > 0:
             return choice(best)
-        else:
+        elif len(available) > 0:
             return choice(available)
+        else:
+            return self.parent.direction # Doomed, boys.
 
 
 class ML(AI):
