@@ -120,6 +120,7 @@ class App:
                         # self.on_init()
                         # Holy fuck.
                         self.top_score = max(self.top_score, self._display.components['score'].components['text'].properties['score'])
+                        print(self.top_score)
                         self.new_game()
                         # self._running = False
                 # Out-of-bounds kill

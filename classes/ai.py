@@ -50,7 +50,6 @@ class AI:
         # Return direction(s) to...one apple. Mod it for nearest apple in future.
         # Also mod it to take into account wrap-around, cause it doesn't.
         # Should probably use relative direction here.
-        print("Locating apple...")
         if apples is None:
             return self.parent.direction
         apple = apples[0]
@@ -90,8 +89,11 @@ class Defensive(AI):
                 available.append(direction)
 
         apple = self.find_apple(apples)
-        available = list(set(apple).intersection(available))
-        return choice(available)
+        best = list(set(apple).intersection(available))
+        if len(best) > 0:
+            return choice(best)
+        else:
+            return choice(available)
 
 
 class ML(AI):

@@ -52,5 +52,5 @@ APPLE_IMAGE = "./assets/snake_food.png"
 # Game difficulty (lol)
 START_LENGTH = 1
 NUM_PLAYERS = 1
-START_GAME_SPEED = 1
+START_GAME_SPEED = 16
 MAX_GAME_SPEED = 32
