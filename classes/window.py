@@ -43,40 +43,39 @@ class Window:
 
     def render_text(self):
         try:
-            texts = self.properties['text']
+            texts = self.components['text']
             for text in texts:
                 text_surface = text['font'].render(text['text'], False, text['color'])
                 self.blit(text_surface, text['location'])
         except KeyError:
             pass
 
-    def blit(self, source, destination):
+    def blit(self, source, location=None):
+        # Don't wanna bother with location if its a sub-window, but text becomes trickier.
+        location = source.abs_location if location is None else location
         try:
-            self.surface.blit(source, destination)
+            self.surface.blit(source.surface, location)
         except:
             pass
 
     def render(self):
         if self.color is not None and self.visible:
             self.surface.fill(self.color)
-            for window in self.components.get('windows'):
-                if window.visible:
-                    window.render()
-        if self.parent is None:
-            # Then we're the main window and thus always visible.
-        else:
-            # Then we're a sub window and need to check visibility!
-            # Or just make sure base window is always visible.
+            # Render sub-windows
+            try:
+                for window in self.components.get('windows'):
+                    if window.visible:
+                        window.render()
+            except TypeError:
+                pass
+            # Render on-window stuff like grids/snakes whatever
 
-        if onto_window is not None:
-            if self.visible:
-                for component in self.components:
-                    # hasattr(self.components[component], 'visible') and 
-                    if self.components[component].visible:
-                        self.components[component].render(self.surface)
-                onto_window.blit(self.surface, self.abs_location)
-        else:
-            for component in self.components:
-                if self.components[component].visible:
-                    self.components[component].render(self.surface)
+            # Render text
+            self.render_text()
+
+        # Blit onto main window or if main window, update main display
+        if self.parent is None:
+            # Then we're the main window
             pygame.display.flip()
+        else:
+            self.parent.blit(self)
