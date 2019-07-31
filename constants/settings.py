@@ -2,15 +2,12 @@ from constants import colors
 from constants.enums import Locations
 import sys
 
-# I guess these technically aren't constants?
-
 # Graphics, resolutions.
 RESOLUTION = (800, 450)
 WINDOW_TITLE = "SnAIke"
 WINDOW_ICON = None
 WINDOW_BUFFER = 10
 
-# PLAY_AREA_DIMENSIONS = (35, 24)
 PLAY_AREA_DIMENSIONS = (35, 24)
 PLAY_AREA_LOCATION = Locations.TOP_LEFT
 SCORE_BOARD_RESOLUTION = (560, 39)
@@ -29,7 +26,6 @@ BLOCK_SIZE = 16
 
 BACKGROUND = colors.BLACK
 WINDOW_BACKGROUND = colors.GREY
-
 BACKGROUND_MAIN = colors.YELLOW
 BACKGROUND_PLAY_AREA = colors.BLACK
 BACKGROUND_SCORE = colors.BLUE
@@ -51,6 +47,6 @@ APPLE_IMAGE = "./assets/snake_food.png"
 
 # Game difficulty (lol)
 START_LENGTH = 1
-NUM_PLAYERS = 1
+NUM_PLAYERS = 2
 START_GAME_SPEED = 16
 MAX_GAME_SPEED = 32

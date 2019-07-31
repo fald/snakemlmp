@@ -7,7 +7,6 @@ import pygame
 #       that tends to lead to nothing happening at all instead of
 #       just trash happening...hm.
 #
-#   Implement aggression in basic dumbfuck AI
 #   Major cleanup needed.
 #   Attach AI to snake instead of application
 #   Map objects instead of whatever this is.
