@@ -12,6 +12,7 @@ import pygame
 #   Map objects instead of whatever this is.
 #   Implement ML AI
 #   Train ML AI
+#   sliders/settings
 #   Separate controls between ai/player
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state

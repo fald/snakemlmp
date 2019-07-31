@@ -1,12 +1,7 @@
 from pygame import Surface
+import window
 
-# class Window(Surface):
-#     # Just a modded surface that'll take into account grid style coords.
-#     # Hm, but maybe just a grid that's a 2d array would be best.
-#     pass
-
-# This was a bad idea
-class Grid:
+class Grid(window.Window):
     def __init__(self, dimensions):
         self.grid = [[None for x in range(dimensions[0])] for y in range(dimensions[1])]
 

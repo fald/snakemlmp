@@ -2,77 +2,80 @@ from constants.settings import *
 from constants.enums import Locations
 import pygame
 
-class Window:
-    main_window_resolution = RESOLUTION
-    window_buffer = WINDOW_BUFFER
 
+# Components:
+#   windows -> sub-windows
+#   text    -> Dict of text, font, color and location
+#   grid    -> grid system in place to hold snakes, apples
+
+class Window:
     def __init__(
-        self, resolution=RESOLUTION, surface=None, color=BACKGROUND,
-        image=None, rel_location=Locations.CENTER, components=None, 
-        visible=False, properties=None
+        self, resolution=RESOLUTION, surface=None, 
+        color=BACKGROUND, image=None, rel_location=Locations.CENTER, 
+        components=None, visible=False, properties=None,
+        parent=None
         ):
         self.resolution = resolution
+        self.surface = surface if surface is not None else pygame.Surface(self.resolution)
         self.color = color
         self.image = image
         self.rel_location = rel_location
-        if components is None:
-            self.components = {}
-        else:
-            self.components = components
-        if properties is None:
-            self.properties = {}
-        else:
-            self.properties = properties
+        self.components = components if components is not None else {}
         self.visible = visible
-        if surface is None:
-            self.surface = pygame.Surface(self.resolution)
-        else:
-            self.surface = surface
+        self.parent = parent
 
     @property
     def abs_location(self):
-        x, y = (
-            relative_location * (main_resolution - own_resolution - 2 * Window.window_buffer) + Window.window_buffer
-            for 
-            relative_location, main_resolution, own_resolution 
-            in 
-            zip(self.rel_location.value, Window.main_window_resolution, self.resolution)
-            # self.rel_location * (main_window_resolution - self.resolution + 2 * window_buffer) - window_buffer
-        )
-        return x, y
+        if self.parent is not None:
+            x, y = (
+                relative_location * (main_resolution - own_resolution - 2 * WINDOW_BUFFER) + WINDOW_BUFFER
+                for 
+                relative_location, main_resolution, own_resolution 
+                in 
+                zip(self.rel_location.value, self.parent.resolution, self.resolution)
+            )
+            return x, y        
+        else:
+            return 0, 0
 
-    def add_component(self, component):
+    def update(self, component):
         self.components.update(component)
-
-    def add_components(self, components):
-        self.components.update(components)
-
-    def update(self, property_dict):
-        self.properties.update(property_dict)
-        self.render_text()
 
     def render_text(self):
         try:
-            self.surface = self.properties['font'].render(self.properties['draw_text'], False, self.properties['color'])
+            texts = self.properties['text']
+            for text in texts:
+                text_surface = text['font'].render(text['text'], False, text['color'])
+                self.blit(text_surface, text['location'])
         except KeyError:
             pass
 
-    def render(self, onto_window=None):
-        # lol functions don't overload like I'm used to, this'll do for now.
-        # self.render_text()
+    def blit(self, source, destination):
+        try:
+            self.surface.blit(source, destination)
+        except:
+            pass
+
+    def render(self):
+        if self.color is not None and self.visible:
+            self.surface.fill(self.color)
+            for window in self.components.get('windows'):
+                if window.visible:
+                    window.render()
+        if self.parent is None:
+            # Then we're the main window and thus always visible.
+        else:
+            # Then we're a sub window and need to check visibility!
+            # Or just make sure base window is always visible.
+
         if onto_window is not None:
             if self.visible:
-                if self.color is not None:
-                    self.surface.fill(self.color)
                 for component in self.components:
                     # hasattr(self.components[component], 'visible') and 
                     if self.components[component].visible:
                         self.components[component].render(self.surface)
                 onto_window.blit(self.surface, self.abs_location)
         else:
-            # Main window use only? Assume visible.
-            if self.color is not None:
-                self.surface.fill(self.color)
             for component in self.components:
                 if self.components[component].visible:
                     self.components[component].render(self.surface)

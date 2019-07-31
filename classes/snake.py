@@ -6,8 +6,11 @@ from classes.block import Block
 
 class Snake(Block):
     def __init__(
-        self, start_length=settings.START_LENGTH, head_image=settings.SNAKE_HEAD_IMAGE,
-        body_image=settings.SNAKE_BODY_IMAGE, start_direction=Directions.RIGHT, start_location=(0, 0),
+        self, start_length=settings.START_LENGTH, 
+        head_image=settings.SNAKE_HEAD_IMAGE,
+        body_image=settings.SNAKE_BODY_IMAGE, 
+        start_direction=Directions.RIGHT, 
+        start_location=(0, 0),
         score_board=None
         ):
         super(Snake, self).__init__(start_location, head_image)
