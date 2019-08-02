@@ -64,7 +64,7 @@ class Snake(Block):
         if self.move_rule == MoveRules.WRAP_AROUND:
             self.grid_x = (self.grid_x + direction[0]) % grid_dimensions[0]
             self.grid_y = (self.grid_y + direction[1]) % grid_dimensions[1]
-        else:
+        else: # separated so you can crash
             self.grid_x += direction[0]
             self.grid_y += direction[1]
 
