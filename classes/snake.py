@@ -5,47 +5,49 @@ from classes.block import Block
 
 
 class Snake(Block):
+    default_controls = {
+        K_DOWN: Directions.DOWN,
+        K_UP: Directions.UP,
+        K_LEFT: Directions.LEFT,
+        K_RIGHT: Directions.RIGHT
+    }
+
     def __init__(
         self, start_length=settings.START_LENGTH, 
         head_image=settings.SNAKE_HEAD_IMAGE,
         body_image=settings.SNAKE_BODY_IMAGE, 
         start_direction=Directions.RIGHT, 
-        start_location=(0, 0),
-        score_board=None
+        start_location=(0, 0), components=None,
+        parent=None, move_rule=MoveRules.WRAP_AROUND
         ):
-        super(Snake, self).__init__(start_location, head_image)
+        super(Snake, self).__init__(start_location, head_image, parent=parent)
         self.direction = start_direction
-        self.controls = {
-            K_DOWN: Directions.DOWN,
-            K_UP: Directions.UP,
-            K_LEFT: Directions.LEFT,
-            K_RIGHT: Directions.RIGHT
-        } # Different snakes will have different controls
         self.input_buffer = []
         self.body = []
         self.increase = start_length - 1
         self.body_image = body_image
         self.score = 1 - start_length
-        self.score_board = score_board
-        self.parent = None
-        self.move_rule = MoveRules.WRAP_AROUND
+        self.parent = parent
+        self.move_rule = move_rule # Not settings, can be different between snakes with powerups and such
         # self.move_rule = MoveRules.STANDARD
+        if components is None:
+            self.components = {'controls': Snake.default_controls,  'ai': None}
+        else:
+            self.components = components
 
     def update(self):
         if len(self.input_buffer) > 0:
             self.direction = self.input_buffer.pop(0)
-        self.body.append(Block(self.grid_location, self.body_image))
-        self.move(self.direction.value)
+        self.move(self.direction)
         if self.increase > 0:
-            self.increase -= 1
             self.increase_score()
         else:
             self.body.pop(0)
 
-    def render(self, onto_window):
+    def render(self):
         for segment in self.body:
-            segment.render(onto_window)
-        super(Snake, self).render(onto_window)
+            segment.render()
+        super(Snake, self).render()
 
     @property
     def length(self):
@@ -57,10 +59,19 @@ class Snake(Block):
     def increase_score(self):
         # Probably a better way to do this?
         self.score += 1
-        self.score_board.update({'draw_text': "Score: {0}".format(self.score), 'score': self.score})
+        self.increase -= 1
+        # Asking the grid to ask the scoreboard to update, since the scoreboard is elsewhere.
+        self.parent.upate_score()
+        # self.score_board.update({'draw_text': "Score: {0}".forma11t(self.score), 'score': self.score})
         # score_board.set_property({'score': self.score})
 
-    def move(self, direction, grid_dimensions=settings.PLAY_AREA_DIMENSIONS):
+    def move(self, direction):
+        # , grid_dimensions=settings.PLAY_AREA_DIMENSIONS
+        # direction = direction.value
+        # Kinda gross, but need to update own grid position and the grid's understanding.
+        # Probably better to have a grid.update that takes its components and updates their positions in its own component list?
+        self.body.append(Block(self.grid_location, self.body_image))
+        self.parent.update_grid()
         if self.move_rule == MoveRules.WRAP_AROUND:
             self.grid_x = (self.grid_x + direction[0]) % grid_dimensions[0]
             self.grid_y = (self.grid_y + direction[1]) % grid_dimensions[1]

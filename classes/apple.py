@@ -4,7 +4,7 @@ from constants import settings
 
 
 class Apple(Block):
-    def __init__(self, image, location=None, visible=True, parent=None):
+    def __init__(self, image=settings.APPLE_IMAGE, location=None, visible=True, parent=None):
         super(Apple, self).__init__(location, image, visible, parent)
         self.new_location()
 

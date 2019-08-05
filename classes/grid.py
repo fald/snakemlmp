@@ -7,6 +7,7 @@ class Grid(Window):
         self.grid = [[None for x in range(dimensions[0])] for y in range(dimensions[1])]
         self.components = {
             'snakes': [],
+            'snake_body': [],
             'apples': []
             }
 
@@ -22,6 +23,9 @@ class Grid(Window):
     def reset_components(self):
         for component in self.components:
             self.components[component] = []
+
+    def update_score(self):
+        self.parent.components['windows']['score'].update_score(self.components['snakes'])
 
     def remove(self, index):
         self.grid[index[0]][index[1]] = None

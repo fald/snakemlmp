@@ -8,6 +8,7 @@ import pygame
 #       just trash happening...hm.
 #
 #   Major cleanup needed.
+#   Grid filling for collision and such.
 #   Attach AI to snake instead of application
 #   Map objects instead of whatever this is.
 #   Implement ML AI
