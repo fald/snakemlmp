@@ -61,6 +61,7 @@ class Snake(Block):
         self.score += 1
         self.increase -= 1
         # Asking the grid to ask the scoreboard to update, since the scoreboard is elsewhere.
+        # Don't really want the grid to update score every frame, seems wasteful, so this won't be in the grid's update.
         self.parent.upate_score()
         # self.score_board.update({'draw_text': "Score: {0}".forma11t(self.score), 'score': self.score})
         # score_board.set_property({'score': self.score})

@@ -4,12 +4,17 @@ from window import Window
 class Grid(Window):
     def __init__(self, dimensions):
         self.dimensions = dimensions # For querying
-        self.grid = [[None for x in range(dimensions[0])] for y in range(dimensions[1])]
         self.components = {
             'snakes': [],
-            'snake_body': [],
+            # ?? The fuck was I thinking.
+            #'snake_body': [],
             'apples': []
             }
+        self.grid = None
+        self.clear_grid()
+
+    def clear_grid(self):
+        self.grid = [[None for x in range(dimensions[0])] for y in range(dimensions[1])]
 
     def add_component(self, component_name, component):
         self.components[component_name].extend(component)
@@ -23,6 +28,19 @@ class Grid(Window):
     def reset_components(self):
         for component in self.components:
             self.components[component] = []
+
+    def update(self):
+        # ew.
+        self.clear_grid()
+        for component in components:
+            for individual in component:
+                # uh no, I built it weird, how do I get body parts...
+                self.grid[individual.grid_x][individual.grid_y] = individual
+                if type(individual) == Snake:
+                    for segment in individual.body:                
+                        self.grid[segment.grid_x][segment.grid_y] = segment
+
+
 
     def update_score(self):
         self.parent.components['windows']['score'].update_score(self.components['snakes'])

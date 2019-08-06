@@ -6,6 +6,8 @@ import pygame
 #   Alternatively, sort of map things out on paper first, though
 #       that tends to lead to nothing happening at all instead of
 #       just trash happening...hm.
+#   Also currently collision and the like are handled in the grid window, not per unit, dunno if that's a good idea.
+#   Probably just...ditch the whole grid thing, restart from last stable, but messy, point and clean up again without it.
 #
 #   Major cleanup needed.
 #   Grid filling for collision and such.
