@@ -35,10 +35,14 @@ class Grid(Window):
         for component in components:
             for individual in component:
                 # uh no, I built it weird, how do I get body parts...
-                self.grid[individual.grid_x][individual.grid_y] = individual
                 if type(individual) == Snake:
+                    individual.update()
                     for segment in individual.body:                
                         self.grid[segment.grid_x][segment.grid_y] = segment
+                self.grid[individual.grid_x][individual.grid_y] = individual
+
+
+        
 
 
 

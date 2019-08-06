@@ -67,12 +67,9 @@ class Snake(Block):
         # score_board.set_property({'score': self.score})
 
     def move(self, direction):
-        # , grid_dimensions=settings.PLAY_AREA_DIMENSIONS
-        # direction = direction.value
-        # Kinda gross, but need to update own grid position and the grid's understanding.
-        # Probably better to have a grid.update that takes its components and updates their positions in its own component list?
+        # Grid updates itself and snake together.
         self.body.append(Block(self.grid_location, self.body_image))
-        self.parent.update_grid()
+        # self.parent.update_grid()
         if self.move_rule == MoveRules.WRAP_AROUND:
             self.grid_x = (self.grid_x + direction[0]) % grid_dimensions[0]
             self.grid_y = (self.grid_y + direction[1]) % grid_dimensions[1]
