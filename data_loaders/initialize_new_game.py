@@ -38,8 +38,6 @@ def initialize():
     ]
 
     displays = {
-        # Main be separate in the application class?
-        # 'main': Window(resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), color=settings.BACKGROUND_MAIN),
         'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND_PLAY_AREA, rel_location=settings.PLAY_AREA_LOCATION),
         'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND_SCORE, rel_location=settings.SCORE_BOARD_LOCATION),
         'ai_settings': Window(resolution=settings.AI_SETTINGS_RESOLUTION, color=settings.BACKGROUND_AI_SETTINGS, rel_location=settings.AI_SETTINGS_LOCATION),
