@@ -39,7 +39,10 @@ class Window:
             return 0, 0
 
     def add_component(self, component_name, component):
-        self.components[component_name].extend(component)
+        try:
+            self.components[component_name].extend(component)
+        except KeyError:
+            self.components[component_name] = [component]
     
     def remove_component(self, component_name, component):
         self.components[component_name].remove(component)

@@ -12,10 +12,9 @@ main_display = Window(
     color=settings.BACKGROUND_MAIN
 )
 
-# main_display = Window(
-#         resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), 
-#         color=settings.BACKGROUND_MAIN, components=displays
-#         )
+play_area = Grid()
+
+
 # displays = {
 #     'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND_PLAY_AREA, rel_location=settings.PLAY_AREA_LOCATION),
 #     'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND_SCORE, rel_location=settings.SCORE_BOARD_LOCATION),
