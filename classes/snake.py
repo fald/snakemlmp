@@ -6,10 +6,10 @@ from classes.block import Block
 
 class Snake(Block):
     default_controls = {
-        K_DOWN: Directions.DOWN,
-        K_UP: Directions.UP,
-        K_LEFT: Directions.LEFT,
-        K_RIGHT: Directions.RIGHT
+        K_s: Directions.DOWN,
+        K_w: Directions.UP,
+        K_a: Directions.LEFT,
+        K_d: Directions.RIGHT
     }
 
     def __init__(
