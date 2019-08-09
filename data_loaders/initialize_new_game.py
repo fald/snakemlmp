@@ -6,6 +6,7 @@ from classes.apple import Apple
 from classes.grid import Grid
 from classes.window import Window
 from random import randint
+from prefabs import snakes, windows, fonts
 
 def new_game(images, score_board, num_players=settings.NUM_PLAYERS, num_apples=1):
     players = [Snake(head_image=images['snake_head'], body_image=images['snake_body'], score_board=score_board) for i in range(num_players)]
@@ -31,11 +32,7 @@ def initialize():
         dimension * settings.BLOCK_SIZE for dimension in settings.PLAY_AREA_DIMENSIONS
     )
 
-    fonts = [
-        pygame.font.SysFont(settings.FONT, settings.FONT_SMALL, settings.FONT_BOLD),
-        pygame.font.SysFont(settings.FONT, settings.FONT_MEDIUM, settings.FONT_BOLD),
-        pygame.font.SysFont(settings.FONT, settings.FONT_LARGE, settings.FONT_BOLD),
-    ]
+    fonts = fonts.fonts # el oh el
 
     displays = {
         'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND_PLAY_AREA, rel_location=settings.PLAY_AREA_LOCATION),

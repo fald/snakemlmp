@@ -13,4 +13,6 @@ player_2_controls = {
 
 player_2_snake = snake.Snake(
     head_image="", body_image="", start_direction=enums.Directions.LEFT,
-    start_location=(0, 0), components={'controls': player_2_controls,  'ai': None})
+    start_location=(settings.PLAY_AREA_DIMENSIONS[0] - 1, settings.PLAY_AREA_DIMENSIONS[1] - 1), 
+    components={'controls': player_2_controls,  'ai': None}
+    )
