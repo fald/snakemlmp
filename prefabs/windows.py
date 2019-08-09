@@ -1,9 +1,15 @@
 from classes.window import Window
 from classes.grid import Grid
 from constants import settings
+import pygame
 
 play_area_resolution = tuple(
     dimension * settings.BLOCK_SIZE for dimension in settings.PLAY_AREA_DIMENSIONS
+)
+
+main_display = Window(
+    resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION),
+    color=settings.BACKGROUND_MAIN
 )
 
 # main_display = Window(

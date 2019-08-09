@@ -38,6 +38,19 @@ class Window:
         else:
             return 0, 0
 
+    def add_component(self, component_name, component):
+        self.components[component_name].extend(component)
+    
+    def remove_component(self, component_name, component):
+        self.components[component_name].remove(component)
+
+    def reset_component(self, component_name, component=None):
+        self.components[component_name] = [] if component is None else component
+
+    def reset_components(self):
+        for component in self.components:
+            self.components[component] = []
+
     def update(self, component):
         self.components.update(component)
 

@@ -16,18 +16,7 @@ class Grid(Window):
     def clear_grid(self):
         self.grid = [[None for x in range(dimensions[0])] for y in range(dimensions[1])]
 
-    def add_component(self, component_name, component):
-        self.components[component_name].extend(component)
     
-    def remove_component(self, component_name, component):
-        self.components[component_name].remove(component)
-
-    def reset_component(self, component_name, component=None):
-        self.components[component_name] = [] if component is None else component
-
-    def reset_components(self):
-        for component in self.components:
-            self.components[component] = []
 
     def update(self):
         # ew.
