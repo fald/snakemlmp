@@ -1,18 +1,18 @@
 from pygame import Surface
 from window import Window
-from constants.settings import BLOCK_SIZE, BACKGROUND_PLAY_AREA
+from constants.settings import BLOCK_SIZE, BACKGROUND_PLAY_AREA, PLAY_AREA_DIMENSIONS
 
 class Grid(Window):
     def __init__(
-        self, dimensions, surface=None, 
+        self, dimensions=PLAY_AREA_DIMENSIONS, surface=None, 
         color=BACKGROUND_PLAY_AREA, image=None, rel_location=Locations.CENTER, 
-        components=None, visible=False, properties=None, parent=None
+        components=None, visible=False, parent=None
         ):
-        resolution = BLOCK_SIZE
+        resolution = [BLOCK_SIZE * x for x in dimensions]
         super(Grid, self).__init__(
             resolution=resolution, surface=surface, color=color,
             image=image, rel_location=rel_location, components=components,
-            visible=visible, properties=properties, parent=parent
+            visible=visible, parent=parent
             )
 
         self.dimensions = dimensions # For querying

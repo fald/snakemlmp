@@ -9,6 +9,7 @@ import pygame
 #   Also currently collision and the like are handled in the grid window, not per unit, dunno if that's a good idea.
 #   Probably just...ditch the whole grid thing, restart from last stable, but messy, point and clean up again without it.
 #
+#   windows add component to work with dictionary extends
 #   Major cleanup needed.
 #   Grid filling for collision and such.
 #   Attach AI to snake instead of application

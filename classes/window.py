@@ -38,6 +38,12 @@ class Window:
         else:
             return 0, 0
 
+    @property
+    def displays(self):
+        try:
+            return self.components['displays']
+        return {}
+
     def add_component(self, component_name, component):
         try:
             self.components[component_name].extend(component)

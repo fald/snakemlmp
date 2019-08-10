@@ -1,6 +1,7 @@
 from classes.window import Window
 from classes.grid import Grid
 from constants import settings
+from constants.enums import Locations
 import pygame
 
 play_area_resolution = tuple(
@@ -12,9 +13,12 @@ main_display = Window(
     color=settings.BACKGROUND_MAIN
 )
 
-play_area = Grid()
+play_area = Grid(rel_location=Locations.TOP_LEFT, visible=True, parent=main_display)
+
+score_board = Window(resolution=settings.SCORE_BOARD_RESOLUTION, rel_location=settings.SCORE_BOARD_LOCATION, color=settings.BACKGROUND_SCORE)
 
 
+main_display.add_component('displays', {})
 # displays = {
 #     'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND_PLAY_AREA, rel_location=settings.PLAY_AREA_LOCATION),
 #     'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND_SCORE, rel_location=settings.SCORE_BOARD_LOCATION),
