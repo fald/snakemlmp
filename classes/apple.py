@@ -13,9 +13,9 @@ class Apple(Block):
         try:
             occupied = self.parent.is_occupied()
         except:
-            pass
+            occupied = [[]]
         candidate_locations = []
-        for i in len(occupied[0]):
+        for i in range(len(occupied[0])):
             for j in len(occupied[1]):
                 if occupied[i][j]:
                     candidate_locations.append((i, j))
