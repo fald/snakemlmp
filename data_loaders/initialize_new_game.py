@@ -17,7 +17,7 @@ def new_game(main_display, num_players=settings.NUM_PLAYERS, num_apples=1):
     for snake in snake_list:
         snake.init_image()
 
-    apples = [Apple(parent=main_display.get_display('play_area')) for apple in num_apples]
+    apples = [Apple(parent=main_display.get_display('play_area')) for apple in range(num_apples)]
 
     for apple in apples:
         apple.init_image()

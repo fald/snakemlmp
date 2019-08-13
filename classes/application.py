@@ -48,25 +48,26 @@ class App:
 
     def set_state(self, state):
         # State of main app window doesn't matter, its render doesn't take it into account.
-        # Ew.
-        for display in self._display.components:
-            self._display.components[display].visible = False
+        # # Ew.
+        # for display in self._display.displays:
+        #     self._display.displays[display].visible = False
 
-        if state == GameStates.MAIN_MENU:
-            self._display.components['main_menu'].visible = True
-        elif state == GameStates.PAUSED:
-            self._display.components['pause_menu'].visible = True
-        elif state == GameStates.SETTINGS:
-            self._display.components['game_settings'] = True
-        elif state == GameStates.PLAYING:
-            for display in ['play_area', 'score', 'ai_settings']:
-                self._display.components[display].visible = True
-        elif state == GameStates.NEW_GAME:
-            pass
-        elif state == GameStates.GAME_OVER:
-            # self._displays....new_game?
-            # TODO: Game over.
-            self.set_state(GameStates.MAIN_MENU)
+        # if state == GameStates.MAIN_MENU:
+        #     self._display.components['main_menu'].visible = True
+        # elif state == GameStates.PAUSED:
+        #     self._display.components['pause_menu'].visible = True
+        # elif state == GameStates.SETTINGS:
+        #     self._display.components['game_settings'] = True
+        # elif state == GameStates.PLAYING:
+        #     for display in ['play_area', 'score', 'ai_settings']:
+        #         self._display.components[display].visible = True
+        # elif state == GameStates.NEW_GAME:
+        #     pass
+        # # el
+        # if state == GameStates.GAME_OVER:
+        #     # self._displays....new_game?
+        #     # TODO: Game over.
+        #     self.set_state(GameStates.MAIN_MENU)
 
         self.state = state
 

@@ -46,7 +46,10 @@ class Window:
             return {}
 
     def get_display(self, name):
-        return self.displays[name]
+        try:
+            return self.displays[name]
+        except:
+            pass
 
     # TODO: Fix these three up
     def add_component(self, component_name, component):

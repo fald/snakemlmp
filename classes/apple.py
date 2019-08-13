@@ -10,7 +10,10 @@ class Apple(Block):
         self.new_location()
 
     def new_location(self):
-        occupied = self.parent.is_occupied()
+        try:
+            occupied = self.parent.is_occupied()
+        except:
+            pass
         candidate_locations = []
         for i in len(occupied[0]):
             for j in len(occupied[1]):
