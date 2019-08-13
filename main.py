@@ -2,6 +2,12 @@ from classes.application import App
 import pygame
 
 # TODO: 
+# Scratch the project, remake it for ML
+# New project as a mini-engine for the hell of it, since that's apparently what I fucking want.
+# Also I was sort of trying to do CSS with positioning? The fuck.
+# But yeah, remake, use tkinter.
+# Make use of actual project planning.
+#
 #   Just remake this in tkinter??
 #   Alternatively, sort of map things out on paper first, though
 #       that tends to lead to nothing happening at all instead of

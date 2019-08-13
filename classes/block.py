@@ -7,7 +7,10 @@ class Block:
         self.grid_y = location[1]
         self.visible = visible
         self.parent = parent
-        self.image = pygame.image.load(image).convert()
+        try:
+            self.image = pygame.image.load(image).convert()
+        except:
+            self.image = image
 
 
     @property
@@ -19,6 +22,12 @@ class Block:
         self.abs_x = self.grid_x * self.image.get_size()[0]
         self.abs_y = self.grid_y * self.image.get_size()[0]
         return self.abs_x, self.abs_y  
+
+    def init_image(self):
+        try:
+            self.image = pygame.image.load(self.image).convert()
+        except:
+            pass
 
     def render(self):
         if self.visible:

@@ -1,6 +1,8 @@
 from classes import snake
 from constants import settings
 from constants import enums
+from constants.enums import Directions
+from pygame.locals import *
 
 player_1_snake = snake.Snake()
 

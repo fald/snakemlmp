@@ -3,18 +3,15 @@ from constants.enums import Directions, GameStates
 from classes.snake import Snake
 from classes import ai
 from data_loaders.initialize_new_game import initialize, new_game
-from render_functions.render import refresh
 import pygame, time
 from pygame.locals import *
 
 class App:
     def __init__(self):
         self._running = True
-        # self._displays = {}
         self._display = None
         self._clock = None
         self._fonts = []
-        self._images = []
 
         self.players = []
         self.apples = []
@@ -23,25 +20,22 @@ class App:
         self._ai = ai.Defensive()
         self._state = GameStates.MAIN_MENU
 
-    def on_init(self):
-        init = initialize()
+    def on_init(self):        
         self._running = True
-        # self._displays = init['displays']
-        self._display = init['display']
+
+        init = initialize()
+        self._display = init['main_display']
         self._clock = init['clock']
         self._fonts = init['fonts']
-        self._images = init['images']
+        self.game_speed = init['game_speed']
 
         self.set_state(GameStates.PLAYING)
         self.top_score = 0
         self.new_game()
 
     def new_game(self):
-        game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
-        self.players = game_vars['players']
-        self.apples = game_vars['apples']
-        self.game_speed = game_vars['game_speed']
-        self._display.components['play_area'].components = {'players': self.players[0], 'apples': self.apples[0]}
+        # game_vars = new_game(images=self._images, score_board=self._display.components['score'].components['text'])
+        new_game(self._display)
         self._state = GameStates.PLAYING
         self._ai.parent = self.players[0]
 

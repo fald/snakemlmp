@@ -14,22 +14,24 @@ def new_game(main_display, num_players=settings.NUM_PLAYERS, num_apples=1):
     if num_players > 1:
         snake_list.append(snakes.player_2_snake)
 
-    apples = [Apple(parent=main_display.get_display('play_area') for apple in num_apples]
+    for snake in snake_list:
+        snake.init_image()
 
-    game_speed = settings.START_GAME_SPEED
+    apples = [Apple(parent=main_display.get_display('play_area')) for apple in num_apples]
 
-    return {
-        'players': snake_list,
-        'apples': apples,
-        'game_speed': game_speed
-    }
+    for apple in apples:
+        apple.init_image()
+
+    main_display.get_display('play_area').components['snakes'] = snake_list
+    main_display.get_display('play_area').components['apples'] = apples
 
 def initialize():
     pygame.init()
 
-    fonts = fonts.fonts
+    font_list = fonts.fonts
     main_display = windows.main_display
     clock = pygame.time.Clock()
+    game_speed = settings.START_GAME_SPEED
 
     pygame.display.set_caption(settings.WINDOW_TITLE)
     
@@ -42,6 +44,7 @@ def initialize():
     return {
         'main_display': main_display,
         'clock': clock,
-        'fonts': fonts
+        'fonts': font_list,
+        'game_speed': game_speed
     }
     # Snakes in new_game, hurf.

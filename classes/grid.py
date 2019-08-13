@@ -1,6 +1,7 @@
 from pygame import Surface
-from window import Window
+from classes.window import Window
 from constants.settings import BLOCK_SIZE, BACKGROUND_PLAY_AREA, PLAY_AREA_DIMENSIONS
+from constants.enums import Locations
 
 class Grid(Window):
     def __init__(
@@ -18,15 +19,13 @@ class Grid(Window):
         self.dimensions = dimensions # For querying
         self.components = {
             'snakes': [],
-            # ?? The fuck was I thinking.
-            #'snake_body': [],
             'apples': []
             }
         self.grid = None
         self.clear_grid()
 
     def clear_grid(self):
-        self.grid = [[None for x in range(dimensions[0])] for y in range(dimensions[1])]
+        self.grid = [[None for x in range(self.dimensions[0])] for y in range(self.dimensions[1])]
 
     def update(self):
         # ew.

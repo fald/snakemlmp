@@ -42,7 +42,8 @@ class Window:
     def displays(self):
         try:
             return self.components['displays']
-        return {}
+        except:
+            return {}
 
     def get_display(self, name):
         return self.displays[name]
@@ -52,6 +53,8 @@ class Window:
         if component_name == "displayS":
             try:
                 self.displays.extend(component)
+            except:
+                pass
         try:
             self.components[component_name].extend(component)
         except KeyError:
@@ -60,10 +63,14 @@ class Window:
     def add_display(self, name, display):
         try:
             self.displays[name] = display
+        except:
+            pass
 
     def add_displays(self, display_dict):
         try:
             self.displays = display_dict
+        except:
+            pass
     
     def remove_component(self, component_name, component):
         self.components[component_name].remove(component)
