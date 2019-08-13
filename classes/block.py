@@ -1,12 +1,14 @@
 from constants import settings
+import pygame
 
 class Block:
     def __init__(self, location, image, visible=True, parent=None):
         self.grid_x = location[0]
         self.grid_y = location[1]
-        self.image = image
         self.visible = visible
         self.parent = parent
+        self.image = pygame.image.load(image).convert()
+
 
     @property
     def grid_location(self):

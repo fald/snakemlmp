@@ -28,51 +28,18 @@ def new_game(images, score_board, num_players=settings.NUM_PLAYERS, num_apples=1
 def initialize():
     pygame.init()
 
-    play_area_resolution = tuple(
-        dimension * settings.BLOCK_SIZE for dimension in settings.PLAY_AREA_DIMENSIONS
-    )
-
-    fonts = fonts.fonts # el oh el
-
-    displays = {
-        'play_area': Window(resolution=play_area_resolution, color=settings.BACKGROUND_PLAY_AREA, rel_location=settings.PLAY_AREA_LOCATION),
-        'score': Window(resolution=settings.SCORE_BOARD_RESOLUTION, color=settings.BACKGROUND_SCORE, rel_location=settings.SCORE_BOARD_LOCATION),
-        'ai_settings': Window(resolution=settings.AI_SETTINGS_RESOLUTION, color=settings.BACKGROUND_AI_SETTINGS, rel_location=settings.AI_SETTINGS_LOCATION),
-        'main_menu': Window(resolution=settings.MAIN_MENU_RESOLUTION, color=settings.BACKGROUND_MAIN_MENU, rel_location=settings.MAIN_MENU_LOCATION),
-        'pause_menu': Window(resolution=settings.PAUSE_MENU_RESOLUTION, color=settings.BACKGROUND_PAUSE_MENU, rel_location=settings.PAUSE_MENU_LOCATION),
-        'game_settings': Window(resolution=settings.GAME_SETTINGS_RESOLUTION, color=settings.BACKGROUND_GAME_SETTINGS, rel_location=settings.GAME_SETTINGS_LOCATION),
-    }
-
-    main_display = Window(
-        resolution=settings.RESOLUTION, surface=pygame.display.set_mode(settings.RESOLUTION), 
-        color=settings.BACKGROUND_MAIN, components=displays
-        )
-
-    # main_components = list(displays.values())
-    # displays['main'].add_components(main_components)
-
-    # Ew
-    # main_display.components['score'].surface = fonts[1].render("Eat shit and/or die, please.", True, (255, 0, 0))
-
-    # Can't get it to work making the main score display have this surface, and I have no idea why!
-    score_display = Window(
-        # surface=fonts[1].render("Score: 0", False, (255, 0, 0)), 
-        visible=True, resolution=(100, 100), 
-        color=None, rel_location=Locations.TOP_LEFT,
-        properties={'draw_text': "Score: 0", 'font': fonts[1], 'color': (255, 0, 0), 'score': 0}
-        )
-    displays['score'].add_component({'text': score_display})
+    fonts = fonts.fonts
+    main_display = windows.main_display
+    clock = pygame.time.Clock()
 
     pygame.display.set_caption(settings.WINDOW_TITLE)
-    
-    clock = pygame.time.Clock()
     
     if settings.WINDOW_ICON:
         icon_image = pygame.image.load(settings.WINDOW_ICON).convert()
         pygame.display.set_icon(icon_image)
     else:
         icon_image = None
-    
+        
     images = {
         'snake_body': pygame.image.load(settings.SNAKE_BODY_IMAGE).convert(),
         'snake_head': pygame.image.load(settings.SNAKE_HEAD_IMAGE).convert(),
@@ -81,8 +48,8 @@ def initialize():
 
     return {
         'display': main_display,
-        # 'displays': displays,
         'clock': clock,
         'fonts': fonts,
         'images': images
     }
+    # Snakes in new_game, hurf.

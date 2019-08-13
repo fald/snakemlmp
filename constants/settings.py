@@ -43,6 +43,8 @@ FONT_BOLD = False
 # Images to load
 SNAKE_BODY_IMAGE = "./assets/snake_body.png"
 SNAKE_HEAD_IMAGE = "./assets/snake_head.png"
+SNAKE_BODY_IMAGE_2 = "./assets/snake2_body.png"
+SNAKE_HEAD_IMAGE_2 = "./assets/snake2_head.png"
 APPLE_IMAGE = "./assets/snake_food.png"
 
 # Game difficulty (lol)

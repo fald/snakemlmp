@@ -44,7 +44,12 @@ class Window:
             return self.components['displays']
         return {}
 
+
+    # TODO: Fix this one up
     def add_component(self, component_name, component):
+        if component_name == "displayS":
+            try:
+                self.displays.extend(component)
         try:
             self.components[component_name].extend(component)
         except KeyError:
