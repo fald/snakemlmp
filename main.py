@@ -17,13 +17,11 @@ import pygame
 #   Implement ML AI
 #   Train ML AI
 #   sliders/settings
-#   Separate controls between ai/player
+#   Game states for window visibility and such
 #   Have stuff on sub windows do stuff
 #   Set controls to only work in correct game state
 #   Game over when no more apples to eat
-#   Make use of roguelike style components?
 #   Put collisions elsewhere than in application loop
-#   Fix new game and application mixups
 #   Game state handling (not just crashing on game over lol)
 #   Menus - scoreboard, option settings
 #   Refactor everything once it works, ick.

@@ -8,19 +8,18 @@ from classes.window import Window
 from random import randint
 from prefabs import snakes, windows, fonts
 
-def new_game(images, score_board, num_players=settings.NUM_PLAYERS, num_apples=1):
-    players = [Snake(head_image=images['snake_head'], body_image=images['snake_body'], score_board=score_board) for i in range(num_players)]
-    apples = [Apple((-1, -1), images['apple']) for i in range(num_apples)]
-    for apple in apples:
-        apple.new_location(players)
+# TODO: Only accounts for 1 or 2 players right now, might need a change later.
+def new_game(main_display, num_players=settings.NUM_PLAYERS, num_apples=1):
+    snake_list = [snakes.player_1_snake] # lol named same as module before >.> 
+    if num_players > 1:
+        snake_list.append(snakes.player_2_snake)
+
+    apples = [Apple(parent=main_display.get_display('play_area') for apple in num_apples]
+
     game_speed = settings.START_GAME_SPEED
 
-
-    score_board.update({'draw_text': "Score: {0}".format(players[0].score)})
-    score_board.render_text()
-
     return {
-        'players': players,
+        'players': snake_list,
         'apples': apples,
         'game_speed': game_speed
     }
@@ -39,17 +38,10 @@ def initialize():
         pygame.display.set_icon(icon_image)
     else:
         icon_image = None
-        
-    images = {
-        'snake_body': pygame.image.load(settings.SNAKE_BODY_IMAGE).convert(),
-        'snake_head': pygame.image.load(settings.SNAKE_HEAD_IMAGE).convert(),
-        'apple': pygame.image.load(settings.APPLE_IMAGE).convert()
-    }
 
     return {
-        'display': main_display,
+        'main_display': main_display,
         'clock': clock,
-        'fonts': fonts,
-        'images': images
+        'fonts': fonts
     }
     # Snakes in new_game, hurf.
